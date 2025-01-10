@@ -8,8 +8,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import imagePath from '../public/icon-192x192.png'
 import TopNav from "./zui/TopNav";
 
-console.log(imagePath)
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
