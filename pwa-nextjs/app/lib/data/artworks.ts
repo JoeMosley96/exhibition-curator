@@ -33,11 +33,12 @@ export async function getVAMArtworkById(artworkId: string) {
       title: vamResponse.data.record.titles[0].title,
       artist: vamResponse.data.record.artistMakerPerson.length
         ? vamResponse.data.record.artistMakerPerson[0].name.text
-        : null,
+        : "Unknown",
       imageURL: `https://framemark.vam.ac.uk/collections/${vamResponse.data.record.images[0]}/full/full/0/default.jpg`,
       description: vamResponse.data.record.briefDescription,
       history: vamResponse.data.record.objectHistory.length ? vamResponse.data.record.objectHistory : vamResponse.data.record.historicalContext
     };
+    console.log(artwork.description)
     return artwork;
   } catch (err) {
     console.log(err);
@@ -53,8 +54,6 @@ export async function getArtsyArtworkById(artworkId: string) {
   try {
 
     const [artsyResponse, artist] = await Promise.all([artsy.get(`artworks/${artworkId}`, config), artsy.get(`artists?artwork_id=${artworkId}`, config)]);
-    console.log(artsyResponse.data, "artsyResponse")
-    // console.log(artist.data._embedded.artists[0].name, "artist")
     return {
       artworkId: artsyResponse.data.id,
           title: artsyResponse.data.title,
@@ -68,41 +67,42 @@ export async function getArtsyArtworkById(artworkId: string) {
   }
 }
 
-export async function getVAMArtworks() {
+export async function getVAMArtworks(page: number) {
+  console.log(page, "VAM page")
   try {
-    const vamQuery = "search?q_object_type='painting'&images_exist=1&image_restrict=2&page_size=20"; //add in offset to get next page 
+    const vamQuery = `search?q_object_type='painting'&images_exist=1&image_restrict=2&page_size=20&page=${page}`; //add in offset to get next page 
+    console.log(vamQuery, "vamQuery")
     const vamResponse: AxiosResponse = await vam.get(`objects/${vamQuery}`);
-    // console.log(vamResponse.data.records[1], "vamResponse");
-    // console.log(vamResponse.data.records, "vamresponse")
+    // console.log(vamResponse.data, "vamResponse")
     const vamArtworks: Artwork[] = vamResponse.data.records.map(
       (record: any) => {
+        console.log(record._primaryMaker, "record")
           return {
             artworkId: record.systemNumber,
             title: record._primaryTitle,
-            artist: Object.keys(record._primaryMaker.name).length
+            artist: Object.keys(record._primaryMaker).length
               ? record._primaryMaker.name
-              : null,
+              : "Unknown",
             imageURL: `https://framemark.vam.ac.uk/collections/${record._primaryImageId}/full/full/0/default.jpg`,
             description: null,
             history: null
           };
       }
     );
-    // console.log(vamArtworks, "vamArtworks");
     return vamArtworks
   } catch (err) {
     console.log(err);
   }
 }
 
-export async function getArtsyArtworks() {
+export async function getArtsyArtworks(page: number) {
   const config = {
     headers: {
       "X-XAPP-Token": process.env.NEXT_PUBLIC_ARTSY_API_KEY,
     },
   };
   try {
-    const artsyQuery = "?size=20";  //add in offset to get next page
+    const artsyQuery = `?size=20&offset=${(page-1)*20}`;  //add in offset to get next page
     const artsyResponse: AxiosResponse = await artsy.get(`artworks${artsyQuery}`, config);
     const artsyArtworks: Artwork[] = artsyResponse.data._embedded.artworks.map(
       (artwork: any) => {

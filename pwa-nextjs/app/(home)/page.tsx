@@ -3,17 +3,26 @@ import type { Artwork } from "../lib/data/artworks";
 import { shuffle } from "../utils/utils";
 import ArtworkCard from "../zui/ArtworkCard";
 import Pagination from "../zui/Pagination";
+import {useSearchParams, usePathname} from "next/navigation"
 
-export default async function Home() {
-  const [vamArtworks, artsyArtworks] = [await getVAMArtworks(), await getArtsyArtworks()];
+export default async function Home(props: {
+  searchParams?: Promise<{
+    page: string
+  }>;
+}) {
+  const searchParams = await props.searchParams
+  const page = Number(searchParams?.page) || 1
+
+  const [vamArtworks, artsyArtworks] = [await getVAMArtworks(page), await getArtsyArtworks(page)];
   const artworks: Artwork[] = [...(vamArtworks || []), ...(artsyArtworks || [])];
   shuffle(artworks);
   return (
-      <ul className="flex flex-wrap justify-center items-center gap-3 mt-10 p-0 border-2">
+      <ul className="flex flex-wrap justify-center items-center gap-3 mt-10 pl-0 pb-16 border-2">
         {artworks?.map((artwork) => (
           <ArtworkCard key={artwork.artworkId}  artwork={artwork} />
+          
         ))}
-        <Pagination totalPages={2} />
+        <Pagination totalPages={10} />
         <br/>
       </ul>
   );
