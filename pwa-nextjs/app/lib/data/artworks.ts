@@ -67,16 +67,17 @@ export async function getArtsyArtworkById(artworkId: string) {
   }
 }
 
-export async function getVAMArtworks(page: number) {
-  console.log(page, "VAM page")
+export async function getVAMArtworks(page: number, searchValue: string) {
+  // console.log(page, "VAM page")
   try {
-    const vamQuery = `search?q_object_type='painting'&images_exist=1&image_restrict=2&page_size=20&page=${page}`; //add in offset to get next page 
-    console.log(vamQuery, "vamQuery")
-    const vamResponse: AxiosResponse = await vam.get(`objects/${vamQuery}`);
+    const vamQueryStart = `search?`
+    const vamSearchQuery = searchValue ? `q=${searchValue}&` : ""; 
+    const vamBasicQuery = `search?q_object_type='painting'&images_exist=1&image_restrict=2&page_size=20&page=${page}`; //add in offset to get next page
+    const vamResponse: AxiosResponse = await vam.get(`objects/${vamQueryStart}${vamSearchQuery}${vamBasicQuery}`);
     // console.log(vamResponse.data, "vamResponse")
     const vamArtworks: Artwork[] = vamResponse.data.records.map(
       (record: any) => {
-        console.log(record._primaryMaker, "record")
+        // console.log(record._primaryMaker, "record")
           return {
             artworkId: record.systemNumber,
             title: record._primaryTitle,
@@ -89,7 +90,10 @@ export async function getVAMArtworks(page: number) {
           };
       }
     );
-    return vamArtworks
+    console.log(vamArtworks, "vamArtworks");
+    console.log(vamResponse.data)
+    const pages = vamResponse.data.info.pages
+    return {artworks: vamArtworks, pages: pages}
   } catch (err) {
     console.log(err);
   }
@@ -116,8 +120,8 @@ export async function getArtsyArtworks(page: number) {
         };
       }
     );
-    // console.log(artsyArtworks, "artsyArtworks");
-    return artsyArtworks
+
+    return {artworks: artsyArtworks}
   } catch (err) {
     console.log(err);
   }

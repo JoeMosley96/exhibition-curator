@@ -13,8 +13,8 @@ export default async function Home(props: {
   const searchParams = await props.searchParams
   const page = Number(searchParams?.page) || 1
 
-  const [vamArtworks, artsyArtworks] = [await getVAMArtworks(page), await getArtsyArtworks(page)];
-  const artworks: Artwork[] = [...(vamArtworks || []), ...(artsyArtworks || [])];
+  const [vamArtworks, artsyArtworks] = [await getVAMArtworks(page, ""), await getArtsyArtworks(page)];
+  const artworks: Artwork[] = [...(vamArtworks?.artworks ?? []), ...(artsyArtworks?.artworks ?? [])];
   shuffle(artworks);
   return (
       <ul className="flex flex-wrap justify-center items-center gap-3 mt-10 pl-0 pb-16 border-2">
