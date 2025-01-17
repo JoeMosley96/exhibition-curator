@@ -13,7 +13,8 @@ export default async function Home(props: {
   const searchParams = await props.searchParams
   const page = Number(searchParams?.page) || 1
 
-  const [vamArtworks, artsyArtworks] = [await getVAMArtworks(page, ""), await getArtsyArtworks(page)];
+  const [vamArtworks, artsyArtworks] = [await getVAMArtworks(page, ""), await getArtsyArtworks(page, "")];
+ 
   const artworks: Artwork[] = [...(vamArtworks?.artworks ?? []), ...(artsyArtworks?.artworks ?? [])];
   shuffle(artworks);
   return (

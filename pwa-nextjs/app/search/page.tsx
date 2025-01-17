@@ -6,13 +6,14 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import ArtworkCard from "../zui/ArtworkCard";
 import Pagination from "../zui/Pagination";
-import { Artwork } from "../lib/data/artworks";
-import { getVAMArtworks } from "../lib/data/artworks"; // Adjust the import path as necessary
+import { Artwork, getArtsySearchResultsPage } from "../lib/data/artworks";
+import {getArtsyArtworks, getAllArtsySearchResults, getVAMArtworks } from "../lib/data/artworks"; // Adjust the import path as necessary
 
 export default function Search() {
   const [searchInput, setSearchInput] = useState<string>("");
   const [searchValue, setSearchValue] = useState<string>("");
   const [artworksList, setArtworksList] = useState<Artwork[]>([]);
+  const [allArtsyResults, setAllArtsyResults] = useState<Artwork[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
@@ -29,8 +30,19 @@ export default function Search() {
     setSearchInput("");
   }
 
+  useEffect(()=>{
+    async function fetchData(searchValue: string){
+      const artsyResponse = await getAllArtsySearchResults(searchValue)
+      if (artsyResponse){
+      setTotalPages(artsyResponse.pages)
+      setAllArtsyResults(artsyResponse.artworks)
+      }
+    } 
+    fetchData(searchValue)
+  },[searchValue])
+
   useEffect(() => {
-    if (searchValue.length) {
+    if (searchValue.length && allArtsyResults.length) {
       params.set("page", pageNumber.toString());
       if (searchValue) {
         params.set("query", searchValue);
@@ -38,18 +50,17 @@ export default function Search() {
         params.delete("query");
       }
       router.replace(`${pathname}?${params.toString()}`);
-      async function fetchData(pageNumber: number) {
-        const artworksResponse = await getVAMArtworks(pageNumber, searchValue);
-        if (artworksResponse) {
-          setTotalPages(artworksResponse.pages);
-          setArtworksList(artworksResponse.artworks);
-        }
+
+      async function fetchData(allArtsyResults:Artwork[], pageNumber: number) {
+        const paginatedArtsyResults = getArtsySearchResultsPage(allArtsyResults, pageNumber)
+        console.log("getting a set of", paginatedArtsyResults.artworks.length)
+        setArtworksList(paginatedArtsyResults.artworks)
       }
-      fetchData(pageNumber);
+      fetchData(allArtsyResults, pageNumber);
     } else {
       router.replace(`${pathname}`);
     }
-  }, [searchValue, pathname, pageNumber]);
+  }, [searchValue, pathname, pageNumber, allArtsyResults]);
 
   return (
     <>
@@ -94,7 +105,7 @@ export default function Search() {
             {artworksList?.map((artwork) => (
               <ArtworkCard key={artwork.artworkId} artwork={artwork} />
             ))}
-            <Pagination totalPages={totalPages <= 20 ? totalPages : 20} />
+            <Pagination totalPages={totalPages <= 10 ? totalPages : 10} />
             <br />
           </ul>
         </>
