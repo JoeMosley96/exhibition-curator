@@ -13,7 +13,7 @@ export default function AutoComplete({searchInput, setSearchInput}:{searchInput:
   if (filteredSuggestions.length){
       return (
           filteredSuggestions.map((keyword, i) => (
-            <button type="submit" key={i} onClick={() => {setSearchInput(keyword)}}className="result-box flex justify-between">
+            <button key={i} onClick={() => {setSearchInput(keyword)}}className="result-box flex justify-between">
                 <div>
                 {keyword}
                 </div>
