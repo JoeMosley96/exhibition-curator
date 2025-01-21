@@ -1,10 +1,6 @@
-import { shuffle, urlExists } from "@/app/utils/utils";
 import axios, {
   AxiosResponse,
-  AxiosRequestConfig,
-  RawAxiosRequestHeaders,
 } from "axios";
-import { responseCookiesToRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 const vam = axios.create({
   baseURL: "https://api.vam.ac.uk/v2/",
@@ -51,7 +47,6 @@ export async function getChicArtworkById(artworkId: string){
     const chicResponse: AxiosResponse = await chic.get(
       `artworks/${artworkId}`
     )
-    console.log(chicResponse.data)
     const artwork: Artwork = {
       artworkId: chicResponse.data.data.id,
       title: chicResponse.data.data.title || "Unknown Title",
@@ -67,6 +62,13 @@ export async function getChicArtworkById(artworkId: string){
 }
 
 export async function getVAMArtworks(page: number, searchValue: string) {
+  type VAMRecord = {
+    systemNumber: string;
+    _primaryTitle: string;
+    _primaryMaker: { name: string };
+    _primaryImageId: string;
+  };
+
   try {
     const vamQueryStart = `search?`;
     const vamSearchQuery = searchValue ? `q=${searchValue}&` : "";
@@ -75,7 +77,7 @@ export async function getVAMArtworks(page: number, searchValue: string) {
       `objects/${vamQueryStart}${vamSearchQuery}${vamBasicQuery}`
     );
     const vamArtworks: Artwork[] = vamResponse.data.records.map(
-      (record: any) => {
+      (record: VAMRecord) => {
         return {
           artworkId: record.systemNumber,
           title: record._primaryTitle,
@@ -88,7 +90,7 @@ export async function getVAMArtworks(page: number, searchValue: string) {
         };
       }
     );
-    const pages = vamResponse.data.info.pages;
+    const pages:number = Number(vamResponse.data.info.pages)
     return { artworks: vamArtworks, pages: pages };
   } catch (err) {
     console.log(err);
@@ -96,11 +98,12 @@ export async function getVAMArtworks(page: number, searchValue: string) {
 }
 
 export async function getChicArtworks(page: number, searchValue: string){
+
   try{
     const chicQuery = searchValue? `&page=${page}&limit=20&query[exists][field]=image_id` : `?page=${page}&limit=20`
     const chicSearchQuery = searchValue?`/search?q=${searchValue}` : ""
     const chicResponse: AxiosResponse = await chic.get(`artworks${chicSearchQuery}${chicQuery}`)
-    const chicArtworks: Artwork[] = await Promise.all(chicResponse.data.data.map(async (artwork: any) => {
+    const chicArtworks: Artwork[] = await Promise.all(chicResponse.data.data.map(async (artwork: { id: string }) => {
       const fullData = await getChicArtworkById(artwork.id)
       if (fullData) {
         return {

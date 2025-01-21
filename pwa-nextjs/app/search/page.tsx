@@ -1,8 +1,6 @@
 import Search from "../zui/Search";
 import { Suspense } from "react";
-import { getChicArtworks, getVAMArtworks } from "../lib/data/artworks";
 import ArtworksList from "../zui/ArtworksList";
-import Pagination from "../zui/Pagination";
 import Spinner from "../zui/spinner/Spinner";
 
 export default async function Page(props: {

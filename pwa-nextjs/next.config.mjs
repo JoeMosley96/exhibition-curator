@@ -13,6 +13,21 @@ export const nextConfig = {
     // experimental:{
     //     ppr: "incremental"
     // }
+    // images: {
+    //     remotePatterns:[
+    //         {protocol: "https",
+    //         hostname:'framemark.vam.ac.uk',
+    //         port:"",
+    //         pathname:"/collections/**/full/full/0/default.jpg"
+    //         },
+    //         {protocol: "https",
+    //         hostname:'www.artic.edu',
+    //         port:"",
+    //         pathname:"/iiif/2/**/full/full/843,/0/default.jpg"
+    //         },
+    //     ],
+    //     domains: ['framemark.vam.ac.uk', "www.artic.edu"],
+    //   },
 };
 
 export default withPWA({

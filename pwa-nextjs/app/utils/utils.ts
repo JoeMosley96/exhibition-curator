@@ -1,6 +1,7 @@
-import { getVAMArtworks, getChicArtworks } from "../lib/data/artworks";
 
-export function shuffle(array: any[]) {
+import { Artwork } from '../lib/data/artworks';
+
+export function shuffle(array: Artwork[]) {
     for (let i = array.length - 1; i >= 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         const temp = array[i];
@@ -40,10 +41,3 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
       totalPages,
     ];
   };
-
-  export function urlExists(url: string, callback: Function) {
-    fetch(url, { method: 'head' })
-    .then(function(status) {
-      callback(status.ok)
-    });
-  }

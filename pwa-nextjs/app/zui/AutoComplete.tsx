@@ -2,11 +2,11 @@ import { searchSuggestions } from "../lib/data/search";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-export default function AutoComplete({searchInput, setSearchInput}:{searchInput:string, setSearchInput:Function}) {
+export default function AutoComplete({searchInput, setSearchInput}:{searchInput:string, setSearchInput:React.Dispatch<React.SetStateAction<string>>}) {
 
-  let filteredSuggestions: String[] = []
+  let filteredSuggestions: string[] = []
   if(searchInput.length){
-    filteredSuggestions = searchSuggestions.filter((keyword, i)=>{
+    filteredSuggestions = searchSuggestions.filter((keyword)=>{
         return keyword.toLowerCase().includes(searchInput.toLowerCase())
     })
   }

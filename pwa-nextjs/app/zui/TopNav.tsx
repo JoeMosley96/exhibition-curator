@@ -7,7 +7,7 @@ export default function TopNav() {
     <div>
     <nav className="navbar navbar-expand-md navbar-light d-none d-lg-block sticky-top" 	role="navigation">
         <div className="container-fluid">
-            <a className="navbar-brand" href="/">MasterpieceHub</a>
+            <Link className="navbar-brand" href="/">MasterpieceHub</Link>
             <Nav className="ml-auto">
               <NavItem>
                 <Link href="/search" className="nav-link">

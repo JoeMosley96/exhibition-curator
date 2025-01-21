@@ -5,7 +5,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import BottomNav from "./zui/BottomNav";
 import "bootstrap/dist/css/bootstrap.css";
-import imagePath from "../public/icon-192x192.png";
 import TopNav from "./zui/TopNav";
 
 const inter = Inter({ subsets: ["latin"] });
