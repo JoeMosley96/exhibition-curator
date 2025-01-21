@@ -3,6 +3,7 @@ import {
   getVAMArtworkById,
 } from "@/app/lib/data/artworks";
 import BackButton from "@/app/zui/BackButton";
+import SaveButton from "@/app/zui/SaveButton";
 import DOMPurify from "isomorphic-dompurify";
 export type paramsType = Promise<{ artworkId: string }>;
 
@@ -27,6 +28,7 @@ export default async function SingleArtwork({params}:{ params: paramsType }) {
         <img src={artwork.imageURL} alt={artwork.title} />
         {artwork.description && <p dangerouslySetInnerHTML={{ __html: sanitizedDescription }} />}
         {artwork.history && <p dangerouslySetInnerHTML={{ __html: sanitizedHistory }} />}
+      <SaveButton artworkId={artwork.artworkId}/>
       </div>
     );
   }

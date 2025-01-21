@@ -78,6 +78,7 @@ export async function getVAMArtworks(page: number, searchValue: string) {
     );
     const vamArtworks: Artwork[] = vamResponse.data.records.map(
       (record: VAMRecord) => {
+        // console.log(record.systemNumber)
         return {
           artworkId: record.systemNumber,
           title: record._primaryTitle,
@@ -106,6 +107,7 @@ export async function getChicArtworks(page: number, searchValue: string){
     const chicArtworks: Artwork[] = await Promise.all(chicResponse.data.data.map(async (artwork: { id: string }) => {
       const fullData = await getChicArtworkById(artwork.id)
       if (fullData) {
+        // console.log(fullData.artworkId)
         return {
           artworkId: fullData.artworkId || null,
           title: fullData.title || "Unknown Title",

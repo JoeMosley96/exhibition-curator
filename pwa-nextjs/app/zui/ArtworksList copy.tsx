@@ -5,7 +5,7 @@ import Pagination from "./Pagination";
 import { shuffle } from "../utils/utils";
 import React, { useState, useEffect } from "react";
 import { Artwork } from "../lib/data/artworks";
-import Spinner from "./spinner/Spinner";
+import Spinner from "./Spinner";
 import { Suspense } from "react";
 export default function ArtworksList({
   query,
@@ -44,8 +44,8 @@ export default function ArtworksList({
     artworksList.forEach((artwork) => {
       const image = new Image();
       image.onload = function () {
-        const imageHeight = image.height || 300
-        const imageWidth = image.width || 300
+        const imageHeight = image.height || 300;
+        const imageWidth = image.width || 300;
         if (heights[0] <= heights[1]) {
           col1.push(artwork);
           heights[0] += imageHeight / imageWidth;

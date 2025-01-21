@@ -1,7 +1,7 @@
 import Search from "../zui/Search";
 import { Suspense } from "react";
 import ArtworksList from "../zui/ArtworksList";
-import Spinner from "../zui/spinner/Spinner";
+import Spinner from "../zui/Spinner";
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -16,15 +16,15 @@ export default async function Page(props: {
   return (
     <div>
       <div className="mb-10">
-      <Search />
+        <Search />
       </div>
       {query.length ? (
-      <Suspense fallback={<Spinner/>}>
-        <ArtworksList query={query} pageNumber={pageNumber} />
-      </Suspense>
-      ) :
-      <h1>Put collections here</h1>}
+        <Suspense fallback={<Spinner />}>
+          <ArtworksList query={query} pageNumber={pageNumber} />
+        </Suspense>
+      ) : (
+        <h1>Put collections here</h1>
+      )}
     </div>
   );
 }
-

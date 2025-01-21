@@ -12,7 +12,9 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@vercel/postgres": "^0.10.0",
     "axios": "^1.7.9",
+    "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
     "clsx": "^2.1.1",
     "isomorphic-dompurify": "^2.20.0",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

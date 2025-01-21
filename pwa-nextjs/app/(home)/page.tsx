@@ -1,6 +1,6 @@
 import ArtworksList from "../zui/ArtworksList";
 import { Suspense } from "react";
-import Spinner from "../zui/spinner/Spinner";
+import Spinner from "../zui/Spinner";
 
 export default async function Home(props: {
   searchParams?: Promise<{
