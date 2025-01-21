@@ -4,12 +4,11 @@ import {
 } from "@/app/lib/data/artworks";
 import BackButton from "@/app/zui/BackButton";
 import DOMPurify from "isomorphic-dompurify";
+export type paramsType = Promise<{ artworkId: string }>;
 
-
-export default async function SingleArtwork(props: {
-  params: { artworkId: string };
-}) {
-  const { artworkId } = props.params;
+export default async function SingleArtwork({params}:{ params: paramsType }) {
+  // const params = await props.params
+  const { artworkId } = await params;
   const isFromVAM = artworkId.startsWith("O");
   let artwork;
   if (isFromVAM) {
