@@ -51,12 +51,13 @@ export async function getChicArtworkById(artworkId: string){
     const chicResponse: AxiosResponse = await chic.get(
       `artworks/${artworkId}`
     )
+    console.log(chicResponse.data)
     const artwork: Artwork = {
       artworkId: chicResponse.data.data.id,
-      title: chicResponse.data.data.title,
-      artist: chicResponse.data.data.artist_title,
+      title: chicResponse.data.data.title || "Unknown Title",
+      artist: chicResponse.data.data.artist_title || "Unknown",
       imageURL: `${chicResponse.data.config.iiif_url}/${chicResponse.data.data.image_id}/full/843,/0/default.jpg`,
-      description: chicResponse.data.data.short_description,
+      description: chicResponse.data.data.short_description || chicResponse.data.data.medium_display,
       history:chicResponse.data.data.description
     };
     return artwork;

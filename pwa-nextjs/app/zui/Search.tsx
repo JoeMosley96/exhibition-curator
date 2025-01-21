@@ -21,7 +21,6 @@ export default function Search() {
     replace(`${pathname}?${params.toString()}`);
   }
   return (
-    <div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -54,6 +53,6 @@ export default function Search() {
           </div>
         </div>
       </form>
-    </div>
+  
   );
 }

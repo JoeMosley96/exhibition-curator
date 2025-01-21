@@ -10,7 +10,7 @@ export default function ArtworkCard({ artwork }: { artwork: Artwork }) {
   // image.src=artwork.imageURL
   
   return (
-    <li>
+    <li className="max-w-96 ">
       <Link href={`/artwork/${artwork.artworkId}`}>
       <img className="w-full" src={artwork.imageURL} alt={artwork.title} />
       </Link>

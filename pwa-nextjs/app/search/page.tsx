@@ -17,7 +17,9 @@ export default async function Page(props: {
 
   return (
     <div>
+      <div className="mb-10">
       <Search />
+      </div>
       {query.length ? (
       <Suspense fallback={<Spinner/>}>
         <ArtworksList query={query} pageNumber={pageNumber} />
