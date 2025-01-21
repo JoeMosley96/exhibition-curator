@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #626262;
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #9a3838;
   }
 }
 
@@ -20,7 +20,74 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.navbar {
+.search-box{
+  width: 100%;
+  background: #fff;
+  margin: 20px auto 0;
+  border-radius: 5px;
+  border: solid black 1px
+}
+
+.search-row{
+  display: flex;
+  align-items: center;
+  padding: 10px 20px
+}
+
+input{
+  flex: 1;
+  height: 30px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-size: 12px;
+  color: #333
+}
+
+button{
+  background: transparent;
+  border: 0;
+  outline: 0
+}
+
+button .fa-solid{
+  width: 25px;
+  color: #555;
+  font-size: 22px;
+  cursor: pointer
+}
+
+::placeholder{
+  color: #555
+}
+
+.result-box{
+  border-top: 1px solid #999;
+  /* padding: 15px 10px; */
+  margin-bottom: 0;
+  width: 100%
+}
+
+.result-box button{
+  list-style: none;
+  border-radius: 3px;
+  padding: 15px 10px;
+  cursor: pointer;
+  /* border: solid black */
+
+}
+
+.result-box button:hover{
+  background: #e9f3ff
+}
+
+#loading-spinner{
+  position: fixed;
+  top:50%;
+  left:50%; 
+  transform: translate(-50%, -50%)
+}
+/* .navbar {
   border-bottom: solid 1px #EBEBEB;
 }
 .bottom-tab-nav {
@@ -36,3 +103,38 @@ body {
 .bottom-tab-label {
   font-size: 12px;
 }
+
+.search-wrapper{
+  display: flex;
+  flex-direction: column;
+  gap:.25rem
+}
+
+.input{
+  font-size: 1rem
+}
+
+.user-cards{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  margin-top: 1rem
+}
+
+.card{
+  border: 1px solid black;
+  background-color: white;
+  padding: .5rem
+}
+
+.card > .header{
+  margin-bottom: .25rem
+}
+
+.card > .body{
+  font-size: .8rem;
+  color: #777
+}
+
+.hide{
+  display: none
+} */
