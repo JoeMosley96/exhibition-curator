@@ -31,7 +31,7 @@ export async function getCollectionById(collection_id: number) {
 }
 
 export async function getCollectionsByUserId(user_id: number) {
-  let sqlStr = `
+  const sqlStr = `
     SELECT collection_id from collections
     WHERE user_id=$1
     `;

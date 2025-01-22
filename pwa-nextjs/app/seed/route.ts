@@ -5,7 +5,6 @@ import {
   collections,
   collectionArtworks,
 } from "../lib/data/placeholder-data";
-import { projectHmrIdentifiersSubscribe } from "next/dist/build/swc/generated-native";
 
 const client = await db.connect();
 
