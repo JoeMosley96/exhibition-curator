@@ -87,6 +87,34 @@ button .fa-solid{
   left:50%; 
   transform: translate(-50%, -50%)
 }
+
+/* #mypopover {
+  @apply border-none p-8 rounded-2xl max-w-xs;
+} */
+
+/* #mypopover button.icon {
+  @apply bg-none border-none float-right cursor-pointer ;
+} */
+
+#mypopover::backdrop {
+  @apply bg-black bg-opacity-60;
+}
+
+/* #mypopover h4 {
+  @apply mt-0;
+}
+
+#mypopover p {
+  @apply text-gray-600;
+} */
+
+/* #mypopover button.primary {
+  @apply w-full bg-blue-600 p-3 rounded-2xl border-none text-white cursor-pointer;
+} */
+/* 
+#mypopover button.primary:hover {
+  @apply bg-blue-700;
+} */
 /* .navbar {
   border-bottom: solid 1px #EBEBEB;
 }

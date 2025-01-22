@@ -71,6 +71,7 @@ async function seedCollectionArtworks() {
   try {
     await client.sql`
         CREATE TABLE IF NOT EXISTS collectionArtworks(
+        collection_artwork_id SERIAL PRIMARY KEY,
         collection_id INT REFERENCES collections(collection_id) NOT NULL,
         artwork_id VARCHAR(255) NOT NULL
         );

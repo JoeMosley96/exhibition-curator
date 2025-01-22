@@ -1,37 +1,39 @@
-import {
-  getChicArtworkById,
-  getVAMArtworkById,
-} from "@/app/lib/data/artworks";
-import BackButton from "@/app/zui/BackButton";
-import SaveButton from "@/app/zui/SaveButton";
-import DOMPurify from "isomorphic-dompurify";
+"use server";
+
+import { getChicArtworkById, getVAMArtworkById } from "@/app/lib/data/artworks";
+import { getCollectionsByUserId } from "@/app/lib/data/collections";
+import SingleArtworkPage from "@/app/zui/SingleArtworkPage";
+import Spinner from "../../zui/Spinner"
+import React, {Suspense} from "react";
+import {notFound} from "next/navigation"
+
 export type paramsType = Promise<{ artworkId: string }>;
 
-export default async function SingleArtwork({params}:{ params: paramsType }) {
-  // const params = await props.params
+export default async function SingleArtwork({
+  params,
+}: {
+  params: paramsType;
+}) {
+  const userCollections = await getCollectionsByUserId(1);
   const { artworkId } = await params;
   const isFromVAM = artworkId.startsWith("O");
   let artwork;
   if (isFromVAM) {
     artwork = await getVAMArtworkById(artworkId);
-  } else{
-    artwork = await getChicArtworkById(artworkId)
-  } 
-  if (artwork) {
-    const sanitizedDescription = artwork.description ? DOMPurify.sanitize(artwork.description) : '';
-    const sanitizedHistory = artwork.history ? DOMPurify.sanitize(artwork.history) : '';
-    return (
-      <div className="pb-16">
-        <BackButton/>
-        <h1>{artwork.title}</h1>
-        <h2>By {artwork.artist}</h2>
-        <img src={artwork.imageURL} alt={artwork.title} />
-        {artwork.description && <p dangerouslySetInnerHTML={{ __html: sanitizedDescription }} />}
-        {artwork.history && <p dangerouslySetInnerHTML={{ __html: sanitizedHistory }} />}
-      <SaveButton artworkId={artwork.artworkId}/>
-      </div>
-    );
+  } else {
+    artwork = await getChicArtworkById(artworkId);
   }
 
-  return <div>No artwork found</div>;
+  if (artwork) {
+    return (
+      <Suspense fallback={<Spinner/>}>
+        <SingleArtworkPage
+          artwork={artwork}
+          userCollections={userCollections}
+        />
+      </Suspense>
+    );
+  } else{
+    notFound()
+  }
 }
