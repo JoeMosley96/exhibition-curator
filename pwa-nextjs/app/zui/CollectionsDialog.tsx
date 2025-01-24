@@ -2,15 +2,27 @@
 import {
   addArtworkToExistingCollection,
   Collection,
+  getCollectionById,
 } from "../lib/data/collections";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function CollectionsDialog({
   userCollections,
+  setJustAdded,
+  setChosenCollection,
 }: {
   userCollections: Collection[];
+  setJustAdded: React.Dispatch<React.SetStateAction<boolean>>;
+  setChosenCollection: React.Dispatch<React.SetStateAction<{
+    collection_id: number;
+    title: string;
+    user_id: number;
+    description: string;
+    created_at: string
+  }>>;
 }) {
   interface IntrinsicElements {
     dialog: React.DetailedHTMLProps<
@@ -20,6 +32,11 @@ export default function CollectionsDialog({
   }
 
   const { artworkId } = useParams<{ artworkId: string }>();
+  const [popover, setPopover] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setPopover(document.getElementById("mypopover"));
+  }, []);
 
   return (
     <dialog
@@ -37,20 +54,24 @@ export default function CollectionsDialog({
       <h4 className="mt-0">Add to Collection</h4>
       <ul>
         {userCollections.map((collection) => {
+          const collectionId = collection.collectionInfo.collection_id;
+          const collectionTitle = collection.collectionInfo.title;
           return (
-            <li key={collection.collectionInfo.collection_id}>
+            <li key={collectionId}>
               <button
-                onClick={() => {
-                  addArtworkToExistingCollection(
-                    collection.collectionInfo.collection_id,
+                onClick={async (event) => {
+                  const addedArtwork = await addArtworkToExistingCollection(
+                    collectionId,
                     artworkId
                   );
-                  console.log("clicked")
+                  if ((addedArtwork as any[]).length) {
+                    setJustAdded(true);
+                    setChosenCollection(collection.collectionInfo);
+                    popover?.hidePopover();
+                  }
                 }}
-                popoverTarget="mypopover"
-                popoverTargetAction="hide"
               >
-                {collection.collectionInfo.title}
+                {collectionTitle}
               </button>
               {/* <p>{collection.collectionInfo.description}</p> */}
             </li>

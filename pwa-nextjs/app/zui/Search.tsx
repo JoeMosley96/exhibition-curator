@@ -37,7 +37,6 @@ export default function Search() {
               placeholder="Search for anything"
               autoComplete="off"
               onChange={(e) => {
-                console.log(e.target.value)
                 setSearchInput(e.target.value);
               }}
             />

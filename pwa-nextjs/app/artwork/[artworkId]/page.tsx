@@ -23,6 +23,7 @@ export default async function SingleArtwork({
   } else {
     artwork = await getChicArtworkById(artworkId);
   }
+  
 
   if (artwork) {
     return (

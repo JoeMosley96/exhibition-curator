@@ -51,7 +51,7 @@ export async function getChicArtworkById(artworkId: string){
       artworkId: chicResponse.data.data.id,
       title: chicResponse.data.data.title || "Unknown Title",
       artist: chicResponse.data.data.artist_title || "Unknown",
-      imageURL: `${chicResponse.data.config.iiif_url}/${chicResponse.data.data.image_id}/full/843,/0/default.jpg`,
+      imageURL: `${chicResponse.data.config.iiif_url}/${chicResponse.data.data.image_id}/full/pct:100/0/default.jpg`,
       description: chicResponse.data.data.short_description || chicResponse.data.data.medium_display,
       history:chicResponse.data.data.description
     };
