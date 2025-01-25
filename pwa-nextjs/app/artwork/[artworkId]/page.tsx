@@ -24,6 +24,7 @@ export default async function SingleArtwork({
     artwork = await getChicArtworkById(artworkId);
   }
   
+  console.log("artwork", artwork)
 
   if (artwork) {
     return (

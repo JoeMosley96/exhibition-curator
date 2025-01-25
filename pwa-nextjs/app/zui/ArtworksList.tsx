@@ -19,11 +19,11 @@ export default async function ArtworksList({
     ...(chicArtworks?.artworks || []),
   ];
   const totalPages = vamArtworks?.pages + chicArtworks?.pages;
+  const filteredArtworks = artworks.filter((element)=>element!=null)
   shuffle(artworks);
  
-
-  const artworksCol1 =artworks.slice(Math.floor(artworks.length/2)).filter((element)=>element!=null)
-  const artworksCol2 =artworks.slice(0, Math.floor(artworks.length/2)).filter((element)=>element!=null)
+  const artworksCol1 =filteredArtworks.slice(Math.floor(artworks.length/2))
+  const artworksCol2 =filteredArtworks.slice(0, Math.floor(artworks.length/2))
   // console.log("col1", artworksCol1)
   // console.log("col2", artworksCol2)
   return (

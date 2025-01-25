@@ -47,15 +47,19 @@ export async function getChicArtworkById(artworkId: string){
     const chicResponse: AxiosResponse = await chic.get(
       `artworks/${artworkId}`
     )
-    const artwork: Artwork = {
-      artworkId: chicResponse.data.data.id,
-      title: chicResponse.data.data.title || "Unknown Title",
-      artist: chicResponse.data.data.artist_title || "Unknown",
-      imageURL: `${chicResponse.data.config.iiif_url}/${chicResponse.data.data.image_id}/full/pct:100/0/default.jpg`,
-      description: chicResponse.data.data.short_description || chicResponse.data.data.medium_display,
-      history:chicResponse.data.data.description
-    };
-    return artwork;
+    if (chicResponse.data.data.image_id !=null){
+      const artwork: Artwork = {
+        artworkId: chicResponse.data.data.id,
+        title: chicResponse.data.data.title || "Unknown Title",
+        artist: chicResponse.data.data.artist_title || "Unknown",
+        imageURL: `${chicResponse.data.config.iiif_url}/${chicResponse.data.data.image_id}/full/pct:100/0/default.jpg`,
+        description: chicResponse.data.data.short_description || chicResponse.data.data.medium_display,
+        history:chicResponse.data.data.description
+      };
+      return artwork;
+    } else{
+      return null
+    }
   }catch(err){
     console.log(err)
   }
@@ -101,9 +105,10 @@ export async function getVAMArtworks(page: number, searchValue: string) {
 export async function getChicArtworks(page: number, searchValue: string){
 
   try{
-    const chicQuery = searchValue? `&page=${page}&limit=20&query[exists][field]=image_id` : `?page=${page}&limit=20`
     const chicSearchQuery = searchValue?`/search?q=${searchValue}` : ""
-    const chicResponse: AxiosResponse = await chic.get(`artworks${chicSearchQuery}${chicQuery}`)
+    const operator = searchValue ? `&` : `?`
+    const chicQuery = `page=${page}&limit=20&query[exists][field]=image_id`
+    const chicResponse: AxiosResponse = await chic.get(`artworks${chicSearchQuery}${operator}${chicQuery}`)
     const chicArtworks: Artwork[] = await Promise.all(chicResponse.data.data.map(async (artwork: { id: string }) => {
       const fullData = await getChicArtworkById(artwork.id)
       if (fullData) {
