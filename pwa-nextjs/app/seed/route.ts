@@ -1,10 +1,33 @@
 import bcrypt from "bcrypt";
+import { put } from "@vercel/blob";
+import { revalidatePath } from "next/cache";
 import { db } from "@vercel/postgres";
 import {
   users,
   collections,
   collectionArtworks,
 } from "../lib/data/placeholder-data";
+import path from "path";
+import { list, del } from "@vercel/blob";
+import fs from "fs/promises";
+
+async function clearAllBlobs() {
+  try {
+    // List all blobs in your storage
+    const { blobs } = await list();
+    // Check if there are any blobs to delete
+    if (blobs.length === 0) {
+      console.log("No blobs to delete.");
+      return;
+    } else {
+      const deletePromises = blobs.map((blob) => del(blob.url));
+      await Promise.all(deletePromises);
+      console.log("All blobs cleared successfully.");
+    }
+  } catch (err) {
+    console.error("Error clearing blobs:", err);
+  }
+}
 
 const client = await db.connect();
 
@@ -23,13 +46,24 @@ async function seedUsers() {
             avatar_img_url VARCHAR(255)
           );
         `;
-
+    `pwa-nextjs/app/lib/data/avatars/artlover1.jpg`;
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);
+        let url;
+        try {
+          const imageBuffer = await fs.readFile(path.join(__dirname, '..', "..", "..","..","app",'lib', "data","avatars",`${user.username}.jpg`));
+          const response = await put(`${user.username}.jpg`, imageBuffer, {
+            access: "public",
+          });
+          url = response.url;
+        } catch (err) {
+          console.error("Error uploading file to Vercel Blob:", err);
+          url = null; 
+        }
         return client.sql`
                 INSERT INTO users (user_id , username, first_name, last_name, bio, password, email, avatar_img_url)
-                VALUES (${user.user_id}, ${user.username}, ${user.first_name}, ${user.last_name}, ${user.bio}, ${hashedPassword}, ${user.email}, ${user.avatar_img_url})
+                VALUES (${user.user_id}, ${user.username}, ${user.first_name}, ${user.last_name}, ${user.bio}, ${hashedPassword}, ${user.email}, ${url})
               `;
       })
     );
@@ -96,6 +130,8 @@ async function seedCollectionArtworks() {
 
 export async function GET() {
   try {
+    // Call this function at the start of your seeding script
+    await clearAllBlobs();
     await client.sql`BEGIN`;
     await client.sql`DROP TABLE IF EXISTS users CASCADE`;
     await client.sql`DROP TABLE IF EXISTS collections CASCADE`;

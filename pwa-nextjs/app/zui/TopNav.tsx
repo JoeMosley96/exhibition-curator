@@ -20,7 +20,7 @@ export default function TopNav() {
               </Link>
             </NavItem>
             <NavItem>
-              <Link href="/user/1" className="nav-link">
+              <Link href="/user/artlover1" className="nav-link">
                 Profile
               </Link>
             </NavItem>

@@ -21,7 +21,7 @@ const tabs = [
     label: "Search",
   },
   {
-    route: "/user/1",
+    route: "/user/artlover1",
     icon: faUserCircle,
     label: "Login",
   },

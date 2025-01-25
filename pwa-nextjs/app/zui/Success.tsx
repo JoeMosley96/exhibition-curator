@@ -31,7 +31,7 @@ export default function Success({
     <div className="flex justify-center">
    
         <motion.div
-          className="w-7/12 h-56  bg-white flex items-center shadow-lg rounded-lg"
+          className="sm:w-7/12 w-full h-56  bg-white flex items-center shadow-lg rounded-lg"
           animate={{ y: -220 }}
           initial={{ y: 0 }}
         >

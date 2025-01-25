@@ -29,20 +29,20 @@ export default function Removed({
   // console.log("removed alert", alert)
 
   return (
-    <div className="flex justify-center">
+    <div>
         <motion.div
-          className="w-7/12 h-56  bg-white flex items-center shadow-lg rounded-lg"
-          animate={{ y: -220 }}
-          initial={{ y: 0 }}
+          className="fixed top-0 sm:w-2/5 w-full h-20 bg-white shadow-lg rounded-lg flex justify-center items-center"
+          animate={{ y: 0 }}
+          initial={{ y: -220 }}
         >
-          <motion.div animate={{ scale: 1 }} initial={{ scale: 0 }}>
+          {/* <motion.div animate={{ scale: 1 }} initial={{ scale: 0 }}>
             <FontAwesomeIcon
               className="w-24 h-24 ml-5 mb-10 sm:ml-12 sm:mb-0"
               color="green"
               icon={faCheckCircle}
             />
-          </motion.div>
-          <p className="text-center text-black mb-10 sm:mb-0 ml-10 text-xl">
+          </motion.div> */}
+          <p className="text-black text-xl">
             Removed from {chosenCollection.title}
           </p>
         </motion.div>
