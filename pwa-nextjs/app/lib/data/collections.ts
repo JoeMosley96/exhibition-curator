@@ -131,3 +131,37 @@ export async function checkSaved(
     console.log("Data checking error", error);
   }
 }
+
+export async function addArtworkToNewCollection(
+  artworkId: string,
+  collectionName: string,
+  description: string,
+  userId: number
+) {
+  try {
+    // create new collection
+    let sqlStr = `
+    INSERT INTO collections(title, user_id, description)
+    VALUES($1, $2, $3)
+    RETURNING *`;
+    let values = [collectionName, userId, description];
+    const collectionResponse = await sql.query(sqlStr, values);
+
+    //add artwork to newly created collection
+    sqlStr=`
+    INSERT INTO collectionArtworks(collection_id, artwork_id)
+    VALUES($1,$2)
+    RETURNING *`
+    values = [collectionResponse.rows[0].collection_id, artworkId]
+    const artworksResponse = await sql.query(sqlStr,values)
+    return {
+      collectionInfo: collectionResponse.rows[0],
+      collectionArtworks: artworksResponse.rows.map(
+        (artwork) => artwork.artwork_id
+      ),
+    }
+
+  } catch (error) {
+    console.log("Error adding item to new collection", error);
+  }
+}

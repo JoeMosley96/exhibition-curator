@@ -62,8 +62,8 @@ async function seedUsers() {
           url = null; 
         }
         return client.sql`
-                INSERT INTO users (user_id , username, first_name, last_name, bio, password, email, avatar_img_url)
-                VALUES (${user.user_id}, ${user.username}, ${user.first_name}, ${user.last_name}, ${user.bio}, ${hashedPassword}, ${user.email}, ${url})
+                INSERT INTO users (username, first_name, last_name, bio, password, email, avatar_img_url)
+                VALUES (${user.username}, ${user.first_name}, ${user.last_name}, ${user.bio}, ${hashedPassword}, ${user.email}, ${url})
               `;
       })
     );
@@ -89,8 +89,8 @@ async function seedCollections() {
     const insertedCollections = await Promise.all(
       collections.map(async (collection) => {
         return client.sql`
-            INSERT INTO collections(collection_id, title, user_id, description, created_at)
-            VALUES(${collection.collection_id}, ${collection.title}, ${collection.user_id}, ${collection.description}, ${collection.created_at})`;
+            INSERT INTO collections(title, user_id, description, created_at)
+            VALUES(${collection.title}, ${collection.user_id}, ${collection.description}, ${collection.created_at})`;
       })
     );
     console.log("Collections seeded successfully");

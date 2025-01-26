@@ -29,9 +29,9 @@ export default function Removed({
   // console.log("removed alert", alert)
 
   return (
-    <div>
+    <div className="flex justify-center items-center">
         <motion.div
-          className="fixed top-0 sm:w-2/5 w-full h-20 bg-white shadow-lg rounded-lg flex justify-center items-center"
+          className="fixed top-5 sm:w-2/5 w-full h-20 bg-white shadow-lg rounded-lg flex justify-center items-center"
           animate={{ y: 0 }}
           initial={{ y: -220 }}
         >

@@ -6,50 +6,58 @@ import {
   getCollectionById,
   removeArtworkFromCollection,
 } from "../lib/data/collections";
+import { useRouter } from "next/navigation";
 
 export default function SaveButton({
   setJustRemoved,
   saved,
   artworkId,
-  chosenCollection
+  chosenCollection,
+  searchParams,
 }: {
-  setJustRemoved: React.Dispatch<React.SetStateAction<boolean>>
-  saved: boolean
-  artworkId: string
+  setJustRemoved: React.Dispatch<React.SetStateAction<boolean>>;
+  saved: boolean;
+  artworkId: string;
   chosenCollection: {
     collection_id: number;
     title: string;
     user_id: number;
     description: string;
     created_at: string;
-  }
+  };
+  searchParams: URLSearchParams;
 }) {
+  const router = useRouter()
   return (
     <>
-    {
-      saved?
-      <button
-      className="w-52 bg-black p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
-      onClick={async ()=>{
-        console.log("collection ID to remove", chosenCollection.collection_id)
-        console.log("artwork ID to remove", artworkId)
-        const removedResponse = await removeArtworkFromCollection(chosenCollection.collection_id, artworkId)
-        console.log("removedResponse",removedResponse)
-        if (Array.isArray(removedResponse) && removedResponse.length) {
-          setJustRemoved(true)
-        }
-      }}
-      >
-        Saved
-      </button>
-      :
-      <button
-        className="w-52 bg-blue-600 p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
-        popoverTarget="mypopover"
+      {saved ? (
+        <button
+          className="w-52 bg-black p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
+          onClick={async () => {
+            const removedResponse = await removeArtworkFromCollection(
+              chosenCollection.collection_id,
+              artworkId
+            );
+
+            if (Array.isArray(removedResponse) && removedResponse.length) {
+              setJustRemoved(true);
+              const params = new URLSearchParams(searchParams);
+              const new_collection = params.get("new_collection");
+              new_collection && params.delete("new_collection");
+              router.replace(`${artworkId}`)
+            }
+          }}
         >
-        Save
-      </button>
-      }
+          Saved
+        </button>
+      ) : (
+        <button
+          className="w-52 bg-blue-600 p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
+          popoverTarget="mypopover"
+        >
+          Save
+        </button>
+      )}
     </>
   );
 }

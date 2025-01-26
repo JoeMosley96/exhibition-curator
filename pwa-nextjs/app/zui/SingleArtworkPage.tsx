@@ -9,6 +9,7 @@ import Removed from "./Removed";
 import React, { useState, useEffect } from "react";
 import { checkSaved, getCollectionById } from "../lib/data/collections";
 import parse from "html-react-parser";
+import { useSearchParams } from "next/navigation";
 
 export default function SingleArtworkPage({
   artwork,
@@ -34,39 +35,56 @@ export default function SingleArtworkPage({
     description: "",
     created_at: "",
   });
-  console.log(artwork)
+  // console.log(artwork);
+
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const checkIfSaved = async () => {
-      const saved = (await checkSaved(1, artwork.artworkId)) ?? {saved:false, collectionId:0};
-      console.log("Saved?", saved);
-      setSaved(saved.saved);
-      const collection = await getCollectionById(saved.collectionId)
-      if (collection?.collectionInfo) {
-        setChosenCollection(collection?.collectionInfo);
+      const saved = await checkSaved(1, artwork.artworkId);
+      if (saved) {
+        const collection = await getCollectionById(saved.collectionId);
+        collection?.collectionInfo &&
+          setChosenCollection(collection?.collectionInfo);
+        setSaved(saved.saved);
       }
     };
     checkIfSaved();
   }, [justAdded, justRemoved]);
 
+  useEffect(() => {
+    const checkNewCollection = async () => {
+      const params = new URLSearchParams(searchParams);
+      const new_collection = params.get("new_collection");
+      if (new_collection) {
+        const collection = await getCollectionById(Number(new_collection));
+        collection?.collectionInfo && setChosenCollection(collection?.collectionInfo);
+        setJustAdded(true);
+        setSaved(true);        
+      }
+    };
+    checkNewCollection();
+  }, [setJustAdded]);
+
+  useEffect(()=>{
+
+  },[])
+
   return (
     <>
-      <div className="pb-16 flex flex-col h-full items-center">
+      <div className="pb-16 flex flex-col h-screen items-center">
         <BackButton />
         <h1>{artwork.title}</h1>
         <h2>By {artwork.artist}</h2>
         <img src={artwork.imageURL} alt={artwork.title} />
-        {artwork.description && (
-          <div>{parse(sanitizedDescription)}</div>
-        )}
-        {artwork.history && (
-          <div>{parse(sanitizedHistory)}</div>
-        )}
+        {artwork.description && <div>{parse(sanitizedDescription)}</div>}
+        {artwork.history && <div>{parse(sanitizedHistory)}</div>}
         <SaveButton
           setJustRemoved={setJustRemoved}
           saved={saved}
           artworkId={artwork.artworkId}
           chosenCollection={chosenCollection}
+          searchParams={searchParams}
         />
       </div>
       <CollectionsDialog
@@ -74,9 +92,18 @@ export default function SingleArtworkPage({
         setJustAdded={setJustAdded}
         setChosenCollection={setChosenCollection}
       />
-      {justAdded && <Success setJustAdded={setJustAdded} chosenCollection={chosenCollection} />}
+      {justAdded && (
+        <Success
+          setJustAdded={setJustAdded}
+          chosenCollection={chosenCollection}
+        />
+      )}
       {justRemoved && (
-        <Removed setJustRemoved={setJustRemoved}chosenCollection={chosenCollection} setSaved={setSaved} />
+        <Removed
+          setJustRemoved={setJustRemoved}
+          chosenCollection={chosenCollection}
+          setSaved={setSaved}
+        />
       )}
     </>
   );

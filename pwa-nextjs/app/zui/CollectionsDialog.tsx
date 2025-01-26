@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function CollectionsDialog({
   userCollections,
@@ -16,13 +17,15 @@ export default function CollectionsDialog({
 }: {
   userCollections: Collection[];
   setJustAdded: React.Dispatch<React.SetStateAction<boolean>>;
-  setChosenCollection: React.Dispatch<React.SetStateAction<{
-    collection_id: number;
-    title: string;
-    user_id: number;
-    description: string;
-    created_at: string
-  }>>;
+  setChosenCollection: React.Dispatch<
+    React.SetStateAction<{
+      collection_id: number;
+      title: string;
+      user_id: number;
+      description: string;
+      created_at: string;
+    }>
+  >;
 }) {
   interface IntrinsicElements {
     dialog: React.DetailedHTMLProps<
@@ -78,13 +81,16 @@ export default function CollectionsDialog({
           );
         })}
       </ul>
-      <button
-        className="w-full bg-blue-600 p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
-        popoverTarget="mypopover"
-        popoverTargetAction="hide"
-      >
-        Continue
-      </button>
+      <Link
+      href={`/create/${artworkId}`}>
+        <button
+          className="w-full bg-blue-600 p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
+          popoverTarget="mypopover"
+          popoverTargetAction="hide"
+        >
+          Create New Collection
+        </button>
+      </Link>
     </dialog>
   );
 }
