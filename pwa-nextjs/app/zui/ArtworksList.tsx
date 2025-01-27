@@ -2,6 +2,8 @@ import { getVAMArtworks, getChicArtworks } from "../lib/data/artworks";
 import ArtworkCard from "./ArtworkCard";
 import Pagination from "./Pagination";
 import { shuffle } from "../utils/utils";
+
+
 export default async function ArtworksList({
   query,
   pageNumber,
@@ -24,8 +26,8 @@ export default async function ArtworksList({
  
   const artworksCol1 =filteredArtworks.slice(Math.floor(artworks.length/2))
   const artworksCol2 =filteredArtworks.slice(0, Math.floor(artworks.length/2))
-  // console.log("col1", artworksCol1)
-  // console.log("col2", artworksCol2)
+
+  
   return (
     <div className="flex flex-col">
       <ul className="flex gap-3 pl-0 ">

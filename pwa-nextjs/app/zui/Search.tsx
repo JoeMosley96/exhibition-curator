@@ -14,6 +14,9 @@ export default function Search() {
   function handleSubmit(searchInput: string) {
     const params = new URLSearchParams(searchParams);
     params.set("query", searchInput);
+    if (!params.has("filter")){
+      params.set("filter", "artworks")
+    }
     params.set("page", "1");
     if (!searchInput) {
       params.delete("query");
@@ -31,7 +34,7 @@ export default function Search() {
         <div className="search-box">
           <div className="search-row ">
             <input
-              value={searchInput}
+              defaultValue={searchParams.get("query")?.toString() }
               type="text"
               id="input-box"
               placeholder="Search for anything"
@@ -39,6 +42,7 @@ export default function Search() {
               onChange={(e) => {
                 setSearchInput(e.target.value);
               }}
+              // defaultValue={searchParams.get("query")?.toString()}
             />
             <button type="submit">
               <FontAwesomeIcon className="fa-solid" icon={faMagnifyingGlass} />

@@ -41,9 +41,6 @@ export default function SaveButton({
 
             if (Array.isArray(removedResponse) && removedResponse.length) {
               setJustRemoved(true);
-              const params = new URLSearchParams(searchParams);
-              const new_collection = params.get("new_collection");
-              new_collection && params.delete("new_collection");
               router.replace(`${artworkId}`)
             }
           }}

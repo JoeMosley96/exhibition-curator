@@ -30,7 +30,7 @@ export default async function Profile(props: {
           <p>{`${userData.userInfo.first_name} ${userData.userInfo.last_name}'s collections:`}</p>
           {userData.userCollections?.map((collection)=>{
             return (
-              <div>
+              <div key={collection.collectionInfo.collection_id}>
                 <p>{collection.collectionInfo.title}</p>
                 <p>{collection.collectionInfo.description}</p>
                 {collection.collectionArtworks.map(async (artwork) => {

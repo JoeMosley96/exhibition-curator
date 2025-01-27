@@ -148,20 +148,44 @@ export async function addArtworkToNewCollection(
     const collectionResponse = await sql.query(sqlStr, values);
 
     //add artwork to newly created collection
-    sqlStr=`
+    sqlStr = `
     INSERT INTO collectionArtworks(collection_id, artwork_id)
     VALUES($1,$2)
-    RETURNING *`
-    values = [collectionResponse.rows[0].collection_id, artworkId]
-    const artworksResponse = await sql.query(sqlStr,values)
+    RETURNING *`;
+    values = [collectionResponse.rows[0].collection_id, artworkId];
+    const artworksResponse = await sql.query(sqlStr, values);
     return {
       collectionInfo: collectionResponse.rows[0],
       collectionArtworks: artworksResponse.rows.map(
         (artwork) => artwork.artwork_id
       ),
-    }
-
+    };
   } catch (error) {
     console.log("Error adding item to new collection", error);
+  }
+}
+
+export async function getCollectionsBySearch(
+  pageNumber: number,
+  query: string
+) {
+  try{
+    const sqlStr = `
+    SELECT collection_id 
+    FROM collections
+    WHERE UPPER(title) LIKE UPPER($1)
+    ORDER BY collection_id 
+    OFFSET $2 ROWS FETCH NEXT 20 ROWS ONLY;`
+    const values = [`%${query}%`, (pageNumber-1)*20]
+    const collectionsResponse = await sql.query(sqlStr, values)
+    const allCollections = await Promise.all(collectionsResponse.rows.map(async(collection)=>{
+      const fullCollection = await getCollectionById(collection.collection_id)
+      return fullCollection
+    }))
+    
+    const filteredCollections=allCollections.filter((collection)=>collection?.collectionArtworks.length !==0 )
+    return filteredCollections
+  } catch(error){
+    console.log("Error searching for collections", error)
   }
 }

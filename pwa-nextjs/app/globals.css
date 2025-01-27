@@ -101,6 +101,10 @@ button .fa-solid{
   @apply bg-black bg-opacity-60;
 }
 
+#filterpopover::backdrop {
+  @apply bg-black bg-opacity-60;
+}
+
 /* #mypopover h4 {
   @apply mt-0;
 }
