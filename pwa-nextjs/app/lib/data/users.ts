@@ -36,3 +36,27 @@ export async function getUserById(user_id: number) {
     console.log("Error fetching user", error);
   }
 }
+
+export async function getUsersBySearch(
+  pageNumber: number,
+  query: string
+) {
+  try{
+    const sqlStr = `
+    SELECT * 
+    FROM users
+    WHERE UPPER(username) LIKE UPPER($1)
+    OR UPPER(first_name) LIKE UPPER($1)
+    OR UPPER(last_name) LIKE UPPER($1)
+    ORDER BY user_id 
+    OFFSET $2 ROWS FETCH NEXT 20 ROWS ONLY;`
+    const values = [`%${query}%`, (pageNumber-1)*20]
+    const usersResponse = await sql.query(sqlStr, values)
+    const allUsers = usersResponse.rows
+    console.log(allUsers)
+    
+    return allUsers
+  } catch(error){
+    console.log("Error searching for users", error)
+  }
+}

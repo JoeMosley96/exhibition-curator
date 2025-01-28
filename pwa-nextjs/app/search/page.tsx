@@ -2,6 +2,7 @@ import Search from "../zui/Search";
 import { Suspense } from "react";
 import ArtworksList from "../zui/ArtworksList";
 import CollectionsList from "../zui/CollectionsList";
+import UsersList from "../zui/UsersList";
 import Spinner from "../zui/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
@@ -31,6 +32,7 @@ export default async function Page(props: {
           <FilterDialog/>
           {filter==="artworks" && <ArtworksList query={query} pageNumber={pageNumber} />}
           {filter==="collections" && <CollectionsList query={query} pageNumber={pageNumber} />}
+          {filter==="profiles"&&<UsersList query={query} pageNumber={pageNumber}/>}
         </Suspense>
       ) : (
         <h1>Put collections here</h1>

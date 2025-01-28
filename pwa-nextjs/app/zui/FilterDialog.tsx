@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { cp } from "fs";
 export default function FilterDialog() {
   interface IntrinsicElements {
     dialog: React.DetailedHTMLProps<
@@ -21,21 +22,29 @@ export default function FilterDialog() {
 
   useEffect(() => {
     setPopover(document.getElementById("filterpopover"));
+    const params = new URLSearchParams(searchParams);
+    const filterApplied = params.get("filter")
+    if(filterApplied==="collections"){
+      collectionsRadio.current && (collectionsRadio.current.checked = true);
+    }
+    if(filterApplied==="profiles"){
+      profilesRadio.current && (profilesRadio.current.checked = true);
+    }
+    if(filterApplied==="artworks"){
+      artworksRadio.current && (artworksRadio.current.checked = true);
+    }
   }, []);
 
   function handleSubmit() {
     const params = new URLSearchParams(searchParams);
     if (artworksRadio.current?.checked) {
-      console.log("artworks radio is checked");
       params.set("filter", "artworks")
     }
     if (profilesRadio.current?.checked) {
       params.set("filter", "profiles")
-      console.log("profiles radio is checked");
     }
     if (collectionsRadio.current?.checked) {
       params.set("filter", "collections")
-      console.log("collections radio is checked");
     }
     replace(`${pathname}?${params.toString()}`)
     popover?.hidePopover();
@@ -67,7 +76,6 @@ export default function FilterDialog() {
           ref={artworksRadio}
           name="filter_preference"
           value="Artworks"
-          defaultChecked
         />
         <label htmlFor="artworks">Artworks</label>
         <br />
@@ -92,13 +100,6 @@ export default function FilterDialog() {
         <button
           type="submit"
           className="w-32 bg-blue-600 p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
-          // onClick={()=>{
-          //   const params = new URLSearchParams(searchParams)
-          //   params.set("type", )
-          //   popover?.hidePopover()
-          // }}
-          // popoverTarget="filterpopover"
-          // popoverTargetAction="hide"
         >
           Apply
         </button>

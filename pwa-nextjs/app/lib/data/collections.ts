@@ -189,3 +189,5 @@ export async function getCollectionsBySearch(
     console.log("Error searching for collections", error)
   }
 }
+
+
