@@ -21,11 +21,11 @@ export default async function Page(props: {
 
   return (
     <div>
-      <div className="mb-10">
+      <div className="mb-10 sm:hidden">
         <Search />
       </div>
       {query.length ? (
-        <Suspense fallback={<Spinner />}>
+        <Suspense key={`${searchParams?.page}-${searchParams?.query}-${searchParams?.filter}`} fallback={<Spinner />}>
           <FilterButton/>
           <FilterDialog/>
           {filter==="artworks" && <ArtworksList query={query} pageNumber={pageNumber} />}

@@ -1,14 +1,16 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useSearchParams, usePathname, useRouter, useParams } from "next/navigation";
 import React, { useState, useRef } from "react";
-import AutoComplete from "./AutoComplete";
 import { searchSuggestions } from "../lib/data/search";
 
-export default function Search() {
+export default function EmbeddedSearch() {
+
+ 
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  console.log(pathname)
   const { replace } = useRouter();
   const [searchInput, setSearchInput] = useState("");
   const searchBox = useRef<HTMLInputElement>(null);
@@ -29,7 +31,7 @@ export default function Search() {
       params.delete("filter");
       params.delete("page");
     }
-    replace(`${pathname}?${params.toString()}`);
+    replace(`/search?${params.toString()}`);
   }
 
   let filteredSuggestions: string[] = [];
@@ -48,43 +50,47 @@ export default function Search() {
         setSearchInput("");
       }}
     >
-      <div className="search-box">
-        <div className="search-row ">
+      <div className="relative ">
+        {/* <div className="form-control "> */}
+        <label className="input input-bordered flex items-center gap-2">
+
           <input
             defaultValue={searchParams.get("query")?.toString() || searchInput}
             type="text"
             id="input-box"
-            placeholder="Search for anything"
+            placeholder="Search"
             autoComplete="off"
             onChange={(e) => {
               setSearchInput(e.target.value || "");
             }}
             ref={searchBox}
+            className="grow"
             // value={searchInput || searchParams.get("query")?.toString()}
-          />
+            />
           <button type="submit">
-            <FontAwesomeIcon className="fa-solid" icon={faMagnifyingGlass} />
+            <FontAwesomeIcon className="fa-solid" size="sm" icon={faMagnifyingGlass} />
           </button>
-        </div>
-        <div className="result-box">
+            </label>
+        {/* </div> */}
+        <div className="result-box w-24">
           {filteredSuggestions &&
             filteredSuggestions.map((keyword, i) => (
               <button
-                // type="submit"
                 key={i}
                 onClick={() => {
                   setSearchInput(keyword)
                   handleSubmit(keyword);
                 }}
-                className="result-box flex justify-between"
+                className="flex justify-between"
               >
-                {keyword}
                 <div>
-                  <FontAwesomeIcon
+                 <FontAwesomeIcon
                     icon={faMagnifyingGlass}
                     className="fa-solid"
                   />
                 </div>
+                {keyword}
+                 
               </button>
             ))}
         </div>

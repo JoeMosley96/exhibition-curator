@@ -4,14 +4,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 export default function FilterButton() {
-//   const router = useRouter();
+  //   const router = useRouter();
 
   return (
     <button
-      className="w-32 bg-blue-600 p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
+      data-theme="cupcake"
+      className="btn btn-secondary w-44"
       popoverTarget="filterpopover"
     >
-      <FontAwesomeIcon icon={faFilter} />
+      <div>
+        <FontAwesomeIcon icon={faFilter} />
+      </div>
     </button>
+    // <button className="btn">Primary</button>
+    // <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Responsive</button>
   );
 }

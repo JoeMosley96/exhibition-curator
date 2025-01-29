@@ -40,8 +40,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-theme="cupcake">
+      <body className={inter.className} data-theme="cupcake">
         <TopNav />
         {children}
         <BottomNav />
