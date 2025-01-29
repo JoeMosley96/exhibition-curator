@@ -7,16 +7,17 @@ import DOMPurify from "isomorphic-dompurify";
 import Success from "./Success";
 import Removed from "./Removed";
 import React, { useState, useEffect } from "react";
-import { checkSaved, getCollectionById } from "../lib/data/collections";
+import { checkSaved, getCollectionById, Collection } from "../lib/data/collections";
 import parse from "html-react-parser";
 import { useSearchParams } from "next/navigation";
+import { Artwork } from "../lib/data/artworks";
 
 export default function SingleArtworkPage({
   artwork,
   userCollections,
 }: {
-  artwork: any;
-  userCollections: any;
+  artwork: Artwork;
+  userCollections: Collection[];
 }) {
   const sanitizedDescription = artwork.description
     ? DOMPurify.sanitize(artwork.description)
@@ -35,7 +36,7 @@ export default function SingleArtworkPage({
     description: "",
     created_at: "",
   });
-  // console.log(artwork);
+
 
   const searchParams = useSearchParams();
 
@@ -44,13 +45,14 @@ export default function SingleArtworkPage({
       const saved = await checkSaved(1, artwork.artworkId);
       if (saved) {
         const collection = await getCollectionById(saved.collectionId);
-        collection?.collectionInfo &&
+        if(collection && collection.collectionInfo){
           setChosenCollection(collection?.collectionInfo);
+        }
         setSaved(saved.saved);
       }
     };
     checkIfSaved();
-  }, [justAdded, justRemoved]);
+  }, [justAdded, justRemoved, artwork.artworkId]);
 
   useEffect(() => {
     const checkNewCollection = async () => {
@@ -58,13 +60,15 @@ export default function SingleArtworkPage({
       const new_collection = params.get("new_collection");
       if (new_collection) {
         const collection = await getCollectionById(Number(new_collection));
-        collection?.collectionInfo && setChosenCollection(collection?.collectionInfo);
-        setJustAdded(true);
-        setSaved(true);        
+        if(collection && collection.collectionInfo){
+          setChosenCollection(collection?.collectionInfo);
+          setJustAdded(true);
+          setSaved(true);        
+        }
       }
     };
     checkNewCollection();
-  }, [setJustAdded]);
+  }, [setJustAdded, searchParams]);
 
   useEffect(()=>{
 
@@ -84,7 +88,6 @@ export default function SingleArtworkPage({
           saved={saved}
           artworkId={artwork.artworkId}
           chosenCollection={chosenCollection}
-          searchParams={searchParams}
         />
       </div>
       <CollectionsDialog

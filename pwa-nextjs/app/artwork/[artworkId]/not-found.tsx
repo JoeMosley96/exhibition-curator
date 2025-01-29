@@ -1,5 +1,4 @@
 "use client"
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFrown } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';

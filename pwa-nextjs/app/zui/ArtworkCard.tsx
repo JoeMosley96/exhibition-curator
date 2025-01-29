@@ -1,18 +1,12 @@
+import Image from "next/image";
 import type { Artwork } from "../lib/data/artworks";
 import Link from "next/link";
 
-export default function ArtworkCard({ artwork }: { artwork: Artwork }) {
-  // const image = new Image()
-  // image.onload = function(){
-  //   console.log(artwork.imageURL)
-  //   console.log("Height: "+image.height + ", Width: " + image.width)
-  // }
-  // image.src=artwork.imageURL
-  
+export default function ArtworkCard({ artwork, }: { artwork: Artwork}) {
   return (
-    <li className="max-w-96 ">
+    <li className="max-w-7xl ">
       <Link href={`/artwork/${artwork.artworkId}`}>
-      <img className="w-full" src={artwork.imageURL} alt={artwork.title} />
+      <Image width={500} height={300} className="w-full" placeholder="blur" blurDataURL={artwork.thumbnailURL || artwork.imageURL}src={artwork.thumbnailURL || artwork.imageURL} loading="lazy" alt={artwork.title} />
       </Link>
     </li>
   );

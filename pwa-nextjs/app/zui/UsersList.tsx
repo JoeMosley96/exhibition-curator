@@ -1,4 +1,5 @@
 import { getUsersBySearch } from "../lib/data/users";
+import Image from "next/image";
 
 export default async function UsersList({
   query,
@@ -11,7 +12,7 @@ export default async function UsersList({
   return users?.map((user) => {
     return (
       <>
-      <img src={user?.avatar_img_url}/>
+      <Image alt="Avatar image" width={300} height={300} src={user?.avatar_img_url}/>
         <p>{user?.first_name}</p>
         <p>{user?.last_name}</p>
         <p>{user?.username}</p>

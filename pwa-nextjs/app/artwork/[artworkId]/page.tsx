@@ -14,7 +14,7 @@ export default async function SingleArtwork({
 }: {
   params: paramsType;
 }) {
-  const userCollections = await getCollectionsByUserId(1);
+  const userCollections = (await getCollectionsByUserId(1)) || [];
   const { artworkId } = await params;
   const isFromVAM = artworkId.startsWith("O");
   let artwork;

@@ -1,4 +1,4 @@
-import { getVAMArtworks, getChicArtworks } from "../lib/data/artworks";
+import { getVAMArtworks, getChicArtworks, Artwork } from "../lib/data/artworks";
 import ArtworkCard from "./ArtworkCard";
 import Pagination from "./Pagination";
 import { shuffle } from "../utils/utils";
@@ -22,12 +22,40 @@ export default async function ArtworksList({
   ];
   const totalPages = vamArtworks?.pages + chicArtworks?.pages;
   const filteredArtworks = artworks.filter((element)=>element!=null)
-  shuffle(artworks);
- 
-  const artworksCol1 =filteredArtworks.slice(Math.floor(artworks.length/2))
-  const artworksCol2 =filteredArtworks.slice(0, Math.floor(artworks.length/2))
+  const seen = new Set();
+  const uniqueArtworks = filteredArtworks.filter((artwork) => {
+    if (seen.has(artwork.artworkId)) {
+      return false;
+    } else {
+      seen.add(artwork.artworkId);
+      return true;
+    }
+  });
 
-  
+  shuffle(uniqueArtworks);
+
+  const uniqueIds = uniqueArtworks.map((artwork)=>artwork.artworkId)
+  let filteredIds: string[] = [];
+  filteredIds = uniqueIds.filter((id, i) => uniqueIds.indexOf(id) === i);
+
+
+  const artworksCol1:Artwork[] = [];
+    const artworksCol2:Artwork[] = [];
+    const heights = [0, 0];
+
+    uniqueArtworks.forEach((artwork) => {
+      // Simulate image loading and assign to shorter column
+      const imageHeight = artwork.imageHeight || 600; // Default height if unknown
+      if (heights[0] <= heights[1]) {
+        artworksCol1.push(artwork);
+        heights[0] += imageHeight;
+      } else {
+        artworksCol2.push(artwork);
+        heights[1] += imageHeight;
+      }
+    }
+    )
+
   return (
     <div className="flex flex-col">
       <ul className="flex gap-3 pl-0 ">
@@ -43,7 +71,7 @@ export default async function ArtworksList({
         </div>
       </ul>
       <div className="pb-16 sm:pb-4  flex justify-center">
-      <Pagination totalPages={totalPages} />
+      <Pagination totalPages={totalPages <= 10 ? totalPages : 10} />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import React, {useState} from "react"
 import { useParams } from "next/navigation";
 import { addArtworkToNewCollection } from "../lib/data/collections";
@@ -13,7 +13,9 @@ export default function CollectionForm() {
 
     async function handleSubmit(artworkId: string, collectionName:string, description:string, userId:number){
         const newCollection = await addArtworkToNewCollection(artworkId, collectionName, description, userId)
-        newCollection && router.push(`/artwork/${artworkId}?new_collection=${newCollection.collectionInfo.collection_id}`)
+        if (newCollection){
+          router.push(`/artwork/${artworkId}?new_collection=${newCollection.collectionInfo.collection_id}`)
+        }
     }
 
   return (

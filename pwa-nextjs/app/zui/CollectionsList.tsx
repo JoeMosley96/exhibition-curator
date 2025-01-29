@@ -9,7 +9,7 @@ export default async function CollectionsList({
 }) {
   const collections = await getCollectionsBySearch(pageNumber, query);
     return collections?.map((collection) => {
-      return <p>{collection?.collectionInfo.title}</p>;
+      return <p key={collection?.collectionInfo.collection_id}>{collection?.collectionInfo.title}</p>;
     });
   
 }

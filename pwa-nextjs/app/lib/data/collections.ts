@@ -1,5 +1,4 @@
 "use server";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 import { sql } from "@vercel/postgres";
 
 export type Collection = {

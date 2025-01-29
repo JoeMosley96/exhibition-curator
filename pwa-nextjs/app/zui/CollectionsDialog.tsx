@@ -2,7 +2,6 @@
 import {
   addArtworkToExistingCollection,
   Collection,
-  getCollectionById,
 } from "../lib/data/collections";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -27,12 +26,6 @@ export default function CollectionsDialog({
     }>
   >;
 }) {
-  interface IntrinsicElements {
-    dialog: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLElement>,
-      HTMLElement
-    >;
-  }
 
   const { artworkId } = useParams<{ artworkId: string }>();
   const [popover, setPopover] = useState<HTMLElement | null>(null);
@@ -62,12 +55,12 @@ export default function CollectionsDialog({
           return (
             <li key={collectionId}>
               <button
-                onClick={async (event) => {
+                onClick={async () => {
                   const addedArtwork = await addArtworkToExistingCollection(
                     collectionId,
                     artworkId
                   );
-                  if ((addedArtwork as any[]).length) {
+                  if (addedArtwork && addedArtwork.length) {
                     setJustAdded(true);
                     setChosenCollection(collection.collectionInfo);
                     popover?.hidePopover();

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import React, { useState, useEffect } from "react";
+import React, {useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,7 +26,6 @@ export default function Success({
     }, 3000);
   }, [setJustAdded]);
 
-  console.log("success alert", alert)
   return (
     <div className="flex justify-center">
    

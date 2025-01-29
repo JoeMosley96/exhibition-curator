@@ -1,9 +1,6 @@
 "use client";
 import React from "react";
 import {
-  addArtworkToExistingCollection,
-  checkSaved,
-  getCollectionById,
   removeArtworkFromCollection,
 } from "../lib/data/collections";
 import { useRouter } from "next/navigation";
@@ -13,7 +10,6 @@ export default function SaveButton({
   saved,
   artworkId,
   chosenCollection,
-  searchParams,
 }: {
   setJustRemoved: React.Dispatch<React.SetStateAction<boolean>>;
   saved: boolean;
@@ -25,7 +21,6 @@ export default function SaveButton({
     description: string;
     created_at: string;
   };
-  searchParams: URLSearchParams;
 }) {
   const router = useRouter()
   return (

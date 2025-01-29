@@ -15,7 +15,9 @@ export default function Search() {
   function handleSubmit(searchInput: string) {
     const params = new URLSearchParams(searchParams);
     params.set("query", searchInput);
-    searchBox.current && (searchBox.current.value = searchInput);
+    if (searchBox.current){
+      searchBox.current.value = searchInput
+    }
     if (!params.has("filter")){
       params.set("filter", "artworks")
     }

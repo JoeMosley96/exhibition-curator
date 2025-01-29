@@ -4,12 +4,24 @@ import withPWA from "next-pwa";
 
 /** @type {import('next').NextConfig} */
 
-export const nextConfig = {
+const nextConfig = {
   reactStrictMode: true, // Enable React strict mode for improved error handling
   // swcMinify: true,            // Enable SWC minification for improved performance
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
   },
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: "https",
+  //       hostname: "my-blob-store.public.blob.vercel-storage.com",
+  //       port: "",
+  //     },
+  //   ],
+  // },
+  // experimental:{
+  //     ppr: "incremental"
+  // }
   images: {
     remotePatterns: [
       {
@@ -17,26 +29,33 @@ export const nextConfig = {
         hostname: "my-blob-store.public.blob.vercel-storage.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "framemark.vam.ac.uk",
+        port: "",
+        pathname: "/collections/**/full/full/0/default.jpg",
+      },
+      {
+        protocol: "https",
+        hostname: "framemark.vam.ac.uk",
+        port: "",
+        pathname: "/collections/**/full/600,/0/default.jpg",
+      },
+      {
+        protocol: "https",
+        hostname: "www.artic.edu",
+        port: "",
+        pathname: "/iiif/2/**/full/pct:100/0/default.jpg",
+      },
+      {
+        protocol: "https",
+        hostname: "www.artic.edu",
+        port: "",
+        pathname: "/iiif/2/**/full/600,/0/default.jpg",
+      },
     ],
+    // domains: ['framemark.vam.ac.uk', "www.artic.edu"],
   },
-  // experimental:{
-  //     ppr: "incremental"
-  // }
-  // images: {
-  //     remotePatterns:[
-  //         {protocol: "https",
-  //         hostname:'framemark.vam.ac.uk',
-  //         port:"",
-  //         pathname:"/collections/**/full/full/0/default.jpg"
-  //         },
-  //         {protocol: "https",
-  //         hostname:'www.artic.edu',
-  //         port:"",
-  //         pathname:"/iiif/2/**/full/full/843,/0/default.jpg"
-  //         },
-  //     ],
-  //     domains: ['framemark.vam.ac.uk', "www.artic.edu"],
-  //   },
 };
 
 export default withPWA({

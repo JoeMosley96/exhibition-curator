@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import { put } from "@vercel/blob";
-import { revalidatePath } from "next/cache";
 import { db } from "@vercel/postgres";
 import {
   users,
@@ -46,7 +45,6 @@ async function seedUsers() {
             avatar_img_url VARCHAR(255)
           );
         `;
-    `pwa-nextjs/app/lib/data/avatars/artlover1.jpg`;
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);

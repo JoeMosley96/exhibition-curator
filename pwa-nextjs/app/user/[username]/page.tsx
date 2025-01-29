@@ -1,7 +1,7 @@
 import { getUserById, getUserIdByUsername } from "@/app/lib/data/users";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { list } from "@vercel/blob";
+
 import { getChicArtworkById, getVAMArtworkById } from "@/app/lib/data/artworks";
 
 export default async function Profile(props: {
@@ -21,9 +21,12 @@ export default async function Profile(props: {
           <p>{userData.userInfo.first_name}</p>
           <p>{userData.userInfo.last_name}</p>
           <p>{userData.userInfo.bio}</p>
-          <img
+          <Image
+            alt="Profile image"
             key={userData.userInfo.username}
             src={userData.userInfo.avatar_img_url}
+            width={300}
+            height={300}
           />
         </div>
         <div>
@@ -33,10 +36,12 @@ export default async function Profile(props: {
               <div key={collection.collectionInfo.collection_id}>
                 <p>{collection.collectionInfo.title}</p>
                 <p>{collection.collectionInfo.description}</p>
-                {collection.collectionArtworks.map(async (artwork) => {
+                {collection.collectionArtworks.map(async (artwork, i) => {
                   const fullArtwork = artwork.startsWith("O") ? await getVAMArtworkById(artwork) : await getChicArtworkById(artwork);
                   return (
-                    <img src={fullArtwork?.imageURL} />
+                    <div key={fullArtwork?.artworkId || i}>
+                    <Image src={fullArtwork?.imageURL || "../../public/Image-not-found.png"} alt="artwork image" width={300} height={300}/>
+                    </div>                      
                   );
                 })}
               </div>

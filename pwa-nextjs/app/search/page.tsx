@@ -4,8 +4,6 @@ import ArtworksList from "../zui/ArtworksList";
 import CollectionsList from "../zui/CollectionsList";
 import UsersList from "../zui/UsersList";
 import Spinner from "../zui/Spinner";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
 import FilterButton from "../zui/FilterButton";
 import FilterDialog from "../zui/FilterDialog";
 

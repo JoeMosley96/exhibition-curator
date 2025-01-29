@@ -14,6 +14,7 @@ export default async function Home(props: {
     <div>
       <Suspense fallback={<Spinner />}>
         <ArtworksList query="" pageNumber={page} />
+        {/* <ArtworksDebug query="" pageNumber={page} /> */}
       </Suspense>
     </div>
   );

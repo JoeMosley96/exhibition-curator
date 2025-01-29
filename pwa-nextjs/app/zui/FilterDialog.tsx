@@ -3,14 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { cp } from "fs";
+
 export default function FilterDialog() {
-  interface IntrinsicElements {
-    dialog: React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLElement>,
-      HTMLElement
-    >;
-  }
   const { replace } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -24,16 +18,20 @@ export default function FilterDialog() {
     setPopover(document.getElementById("filterpopover"));
     const params = new URLSearchParams(searchParams);
     const filterApplied = params.get("filter")
-    if(filterApplied==="collections"){
-      collectionsRadio.current && (collectionsRadio.current.checked = true);
+    if (filterApplied === "collections") {
+      if (collectionsRadio.current) {
+        collectionsRadio.current.checked = true;
+      }
+    } else if (filterApplied === "profiles") {
+      if (profilesRadio.current) {
+        profilesRadio.current.checked = true;
+      }
+    } else {
+      if (artworksRadio.current) {
+        artworksRadio.current.checked = true;
+      }
     }
-    if(filterApplied==="profiles"){
-      profilesRadio.current && (profilesRadio.current.checked = true);
-    }
-    if(filterApplied==="artworks"){
-      artworksRadio.current && (artworksRadio.current.checked = true);
-    }
-  }, []);
+  }, [searchParams]);
 
   function handleSubmit() {
     const params = new URLSearchParams(searchParams);
