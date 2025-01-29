@@ -34,11 +34,6 @@ export default async function ArtworksList({
 
   shuffle(uniqueArtworks);
 
-  const uniqueIds = uniqueArtworks.map((artwork)=>artwork.artworkId)
-  let filteredIds: string[] = [];
-  filteredIds = uniqueIds.filter((id, i) => uniqueIds.indexOf(id) === i);
-
-
   const artworksCol1:Artwork[] = [];
     const artworksCol2:Artwork[] = [];
     const heights = [0, 0];
