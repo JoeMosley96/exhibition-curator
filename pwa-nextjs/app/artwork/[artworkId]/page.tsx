@@ -3,9 +3,9 @@
 import { getChicArtworkById, getVAMArtworkById } from "@/app/lib/data/artworks";
 import { getCollectionsByUserId } from "@/app/lib/data/collections";
 import SingleArtworkPage from "@/app/zui/SingleArtworkPage";
-import Spinner from "../../zui/Spinner"
-import React, {Suspense} from "react";
-import {notFound} from "next/navigation"
+import Spinner from "../../zui/Spinner";
+import React, { Suspense } from "react";
+import { notFound } from "next/navigation";
 
 export type paramsType = Promise<{ artworkId: string }>;
 
@@ -26,14 +26,14 @@ export default async function SingleArtwork({
 
   if (artwork) {
     return (
-      <Suspense fallback={<Spinner/>}>
+      <Suspense fallback={<Spinner />}>
         <SingleArtworkPage
           artwork={artwork}
           userCollections={userCollections}
         />
       </Suspense>
     );
-  } else{
-    notFound()
+  } else {
+    notFound();
   }
 }

@@ -133,9 +133,9 @@ input{
   @apply bg-black bg-opacity-60;
 }
 
-.btn {
+/* .btn {
   @apply rounded-full;
-}
+} */
 
 /* #mypopover h4 {
   @apply mt-0;

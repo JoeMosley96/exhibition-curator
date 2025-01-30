@@ -50,7 +50,7 @@ export default function FilterDialog() {
   }
 
   return (
-    <dialog id="my_modal_1" className="modal modal-bottom sm:modal-middle">
+    <dialog id="filterDialog" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box">
         <h3 className="font-bold text-lg">Filters</h3>
         <div className="modal-action border-t-2  mt-3 pt-3">
@@ -65,7 +65,7 @@ export default function FilterDialog() {
             <button
               onClick={() => {
                 (
-                  document.getElementById("my_modal_1") as HTMLDialogElement
+                  document.getElementById("filterDialog") as HTMLDialogElement
                 )?.close();
               }}
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"

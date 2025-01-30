@@ -29,15 +29,15 @@ const tabs = [
 export default function BottomNav() {
   return (
       <div
-        className="navbar fixed bottom-0 navbar-light block sm:hidden bg-ghost"
+        className="navbar fixed bottom-0 block sm:hidden bg-white"
         role="navigation"
       >
-        <div className=" d-flex flex-row justify-around w-[100%] ">
-          {tabs.map((tab, index) => (
-            <Link href={tab.route} className="nav-link bottom-nav-link w-10  flex justify-center">
-              <button className="btn">
+        <div className=" d-flex flex-row justify-around w-[100%] dock dock-md ">
+          {tabs.map((tab) => (
+            <Link key={tab.label} href={tab.route} className="w-10  flex justify-center">
+              <button >
                 <FontAwesomeIcon
-                  className="text-black"
+                  className="text-black "
                   size="lg"
                   icon={tab.icon}
                 />

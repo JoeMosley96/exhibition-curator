@@ -13,5 +13,5 @@ export default {
   daisyui:{
     themes:["cupcake"]
   },
-  plugins: [daisyui],
+  plugins: [require("@tailwindcss/typography"), daisyui],
 } satisfies Config;

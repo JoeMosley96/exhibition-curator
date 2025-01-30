@@ -8,6 +8,8 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { getChicArtworkById, getVAMArtworkById } from "../lib/data/artworks";
 
 export default function CollectionsDialog({
   userCollections,
@@ -26,64 +28,81 @@ export default function CollectionsDialog({
     }>
   >;
 }) {
-
   const { artworkId } = useParams<{ artworkId: string }>();
-  const [popover, setPopover] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    setPopover(document.getElementById("mypopover"));
-  }, []);
 
   return (
     <dialog
-      id="mypopover"
-      className="border-none p-8 rounded-2xl w-full sm:max-w-xl"
-      popover="manual"
+      id="collectionsDialog"
+      className="modal modal-bottom sm:modal-middle"
     >
-      <button
-        className="bg-none border-none float-right cursor-pointer"
-        popoverTarget="mypopover"
-        popoverTargetAction="hide"
-      >
-        <FontAwesomeIcon icon={faXmark} />
-      </button>
-      <h4 className="mt-0">Add to Collection</h4>
-      <ul>
-        {userCollections.map((collection) => {
-          const collectionId = collection.collectionInfo.collection_id;
-          const collectionTitle = collection.collectionInfo.title;
-          return (
-            <li key={collectionId}>
-              <button
-                onClick={async () => {
-                  const addedArtwork = await addArtworkToExistingCollection(
-                    collectionId,
-                    artworkId
-                  );
-                  if (addedArtwork && addedArtwork.length) {
-                    setJustAdded(true);
-                    setChosenCollection(collection.collectionInfo);
-                    popover?.hidePopover();
-                  }
-                }}
-              >
-                {collectionTitle}
-              </button>
-              {/* <p>{collection.collectionInfo.description}</p> */}
-            </li>
-          );
-        })}
-      </ul>
-      <Link
-      href={`/create/${artworkId}`}>
+      <div className="modal-box">
         <button
-          className="w-full bg-blue-600 p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
-          popoverTarget="mypopover"
-          popoverTargetAction="hide"
+          onClick={() => {
+            (
+              document.getElementById("collectionsDialog") as HTMLDialogElement
+            )?.close();
+          }}
+          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
         >
-          Create New Collection
+          ✕
         </button>
-      </Link>
+
+        <h1 className="font-bold text-lg">Add to Collection</h1>
+        <div className="flex flex-col modal-action border-t-2 mt-3 pt-3">
+          <ul>
+            {userCollections.map((collection) => {
+              const collectionId = collection.collectionInfo.collection_id;
+              const collectionTitle = collection.collectionInfo.title;
+              const collectionThumbnail =
+                collection.collectionArtworks[0]?.thumbnailURL;
+              return (
+                <li key={collectionId}>
+                  <button
+                    className="flex h-14 items-center gap-4"
+                    onClick={async () => {
+                      const addedArtwork = await addArtworkToExistingCollection(
+                        collectionId,
+                        artworkId
+                      );
+                      if (addedArtwork && addedArtwork.length) {
+                        setJustAdded(true);
+                        setChosenCollection(collection.collectionInfo);
+                        (
+                          document.getElementById(
+                            "collectionsDialog"
+                          ) as HTMLDialogElement
+                        )?.close();
+                      }
+                    }}
+                  >
+                    {collectionThumbnail && (
+                      <div className="w-10 h-10">
+                        <Image
+                          className="object-cover aspect-square rounded-lg"
+                          alt="Collction thumbnail"
+                          src={collectionThumbnail}
+                          height={50}
+                          width={50}
+                        />
+                      </div>
+                    )}
+                    <p className={collectionThumbnail ? "" : "pl-14"}>{collectionTitle}</p>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+          <Link href={`/create/${artworkId}`}>
+            <button
+              className="btn btn-neutral w-[50%] ml-[25%]"
+              popoverTarget="mypopover"
+              popoverTargetAction="hide"
+            >
+              Create New
+            </button>
+          </Link>
+        </div>
+      </div>
     </dialog>
   );
 }

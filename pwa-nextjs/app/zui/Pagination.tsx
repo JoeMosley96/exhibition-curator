@@ -22,14 +22,14 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
   return (
     <>
-      <div className="inline-flex">
+      <div className="join">
         <PaginationArrow
           direction="left"
           href={createPageURL(currentPage - 1)}
           isDisabled={currentPage <= 1}
         />
 
-        <div className="flex -space-x-px">
+        <div className="flex">
           {allPages.map((page, index) => {
             let position: "first" | "last" | "single" | "middle" | undefined;
 
@@ -74,11 +74,9 @@ function PaginationNumber({
   const className = clsx(
     "flex h-10 w-10 items-center justify-center text-sm border",
     {
-      "rounded-l-md": position === "first" || position === "single",
-      "rounded-r-md": position === "last" || position === "single",
-      "z-10 bg-blue-600 border-blue-600 text-white": isActive,
-      "hover:bg-gray-100": !isActive && position !== "middle",
-      "text-gray-300": position === "middle",
+      "join-item btn": position === "first" || position === "last" || position === "single" || ( !isActive && position !== "middle"),
+      "join-item btn btn-active": isActive,
+      "join-item btn btn-disabled": position === "middle",
     }
   );
 
@@ -101,12 +99,12 @@ function PaginationArrow({
   isDisabled?: boolean;
 }) {
   const className = clsx(
-    "flex h-10 w-10 items-center justify-center rounded-md border",
+    "flex h-10 w-10 items-center justify-center  border",
     {
-      "pointer-events-none text-gray-300": isDisabled,
-      "hover:bg-gray-100": !isDisabled,
-      "mr-2 md:mr-4": direction === "left",
-      "ml-2 md:ml-4": direction === "right",
+      "join-item btn btn-disabled": isDisabled,
+      "join-item btn": !isDisabled,
+      // "mr-2 md:mr-4": direction === "left",
+      // "ml-2 md:ml-4": direction === "right",
     }
   );
 

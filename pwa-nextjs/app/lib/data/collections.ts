@@ -1,5 +1,6 @@
 "use server";
 import { sql } from "@vercel/postgres";
+import { Artwork, getChicArtworkById, getVAMArtworkById } from "./artworks";
 
 export type Collection = {
   collectionInfo: {
@@ -9,7 +10,7 @@ export type Collection = {
     description: string;
     created_at: string;
   };
-  collectionArtworks: string[];
+  collectionArtworks: Artwork[];
 };
 
 export async function getCollectionById(collection_id: number) {
@@ -31,9 +32,13 @@ export async function getCollectionById(collection_id: number) {
 
     const collectionObject: Collection = {
       collectionInfo: collectionResponse.rows[0],
-      collectionArtworks: artworksResponse.rows.map(
-        (artwork) => artwork.artwork_id
-      ),
+      collectionArtworks: (await Promise.all(artworksResponse.rows.map(
+        async (artwork) => {
+          const artworkId = artwork.artwork_id
+          return artworkId.startsWith("O")
+              ? await getVAMArtworkById(artworkId)
+              : await getChicArtworkById(artworkId);
+    }))).filter((artwork)=> artwork !== undefined && artwork !== null)
     };
     return collectionObject;
   } catch (error) {
@@ -82,6 +87,7 @@ export async function addArtworkToExistingCollection(
     const values = [collection_id, artwork_id];
     const postedResponse = await sql.query(sqlStr, values);
     const newArtwork = postedResponse.rows;
+    console.log(newArtwork)
 
     return newArtwork;
   } catch (error) {

@@ -27,7 +27,7 @@ export default function SaveButton({
     <>
       {saved ? (
         <button
-          className="w-52 bg-black p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
+          className="btn btn-neutral w-52"
           onClick={async () => {
             const removedResponse = await removeArtworkFromCollection(
               chosenCollection.collection_id,
@@ -44,8 +44,10 @@ export default function SaveButton({
         </button>
       ) : (
         <button
-          className="w-52 bg-blue-600 p-3 rounded-2xl border-none text-white cursor-pointer hover:bg-blue-700"
-          popoverTarget="mypopover"
+          className="btn btn-primary w-52"
+          onClick={() => {
+            (document.getElementById("collectionsDialog") as HTMLDialogElement)?.showModal();
+          }}
         >
           Save
         </button>

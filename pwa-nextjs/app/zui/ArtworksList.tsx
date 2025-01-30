@@ -52,7 +52,7 @@ export default async function ArtworksList({
     )
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col sm:pt-20">
       <ul className="flex gap-3 pl-0 ">
         <div className="flex flex-1 flex-col flex-wrap gap-3 items-center ">
         {artworksCol1?.map((artwork) => (
@@ -65,7 +65,7 @@ export default async function ArtworksList({
         ))}
         </div>
       </ul>
-      <div className="pb-16 sm:pb-4  flex justify-center">
+      <div className="pb-16 sm:pb-4 pt-10 flex justify-center">
       <Pagination totalPages={totalPages <= 10 ? totalPages : 10} />
       </div>
     </div>

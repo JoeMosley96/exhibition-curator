@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function TopNav() {
   return (
-    <nav className="navbar sm:flex justify-between bg-base-100 hidden">
+    <nav className="navbar fixed top-0 sm:flex justify-between bg-base-100 hidden z-99">
       <Link href="/">
       <div className="flex-1 ">
         <p className="btn btn-ghost text-xl">masterpieceHub</p>

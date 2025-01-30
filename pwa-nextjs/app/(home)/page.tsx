@@ -1,6 +1,7 @@
 import ArtworksList from "../zui/ArtworksList";
 import { Suspense } from "react";
 import Spinner from "../zui/Spinner";
+import { getCollectionById } from "../lib/data/collections";
 
 export default async function Home(props: {
   searchParams?: Promise<{
@@ -12,7 +13,7 @@ export default async function Home(props: {
 
   return (
     <div>
-      <Suspense fallback={<Spinner />}>
+      <Suspense key={`${searchParams?.page}`} fallback={<Spinner />}>
         <ArtworksList query="" pageNumber={page} />
         {/* <ArtworksDebug query="" pageNumber={page} /> */}
       </Suspense>

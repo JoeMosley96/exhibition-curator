@@ -10,7 +10,6 @@ export default function EmbeddedSearch() {
  
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  console.log(pathname)
   const { replace } = useRouter();
   const [searchInput, setSearchInput] = useState("");
   const searchBox = useRef<HTMLInputElement>(null);

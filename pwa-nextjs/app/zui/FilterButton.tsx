@@ -9,7 +9,7 @@ export default function FilterButton() {
     <button
       className="btn w-24"
       onClick={() => {
-        (document.getElementById("my_modal_1") as HTMLDialogElement)?.showModal();
+        (document.getElementById("filterDialog") as HTMLDialogElement)?.showModal();
       }}
     >
       <FontAwesomeIcon icon={faFilter} />
