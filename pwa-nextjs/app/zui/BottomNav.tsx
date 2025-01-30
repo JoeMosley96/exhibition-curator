@@ -6,7 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import React from "react";
-import { Nav, NavItem } from "reactstrap";
 import Link from "next/link";
 
 const tabs = [
@@ -23,29 +22,31 @@ const tabs = [
   {
     route: "/user/artlover1",
     icon: faUserCircle,
-    label: "Login",
+    label: "Profile",
   },
 ];
+
 export default function BottomNav() {
   return (
-    <div>
-      {/* Bottom Tab Navigator*/}
-      <nav className="navbar fixed-bottom navbar-light d-block d-lg-none bg-slate-100 bottom-tab-nav" role="navigation">
-        <Nav className="w-100 ">
-          <div className=" d-flex flex-row justify-content-around w-100">
-            {tabs.map((tab, index) => (
-              <NavItem key={`tab-${index}`}>
-                <Link href={tab.route} className="nav-link bottom-nav-link w-16">
-                  <div className="row d-flex flex-column justify-items-center align-items-center">
-                    <FontAwesomeIcon className ="text-black" size="lg" icon={tab.icon} />
-                    <div className="hidden">{tab.label}</div>
-                  </div>
-                </Link>
-              </NavItem>
-            ))}
-          </div>
-        </Nav>
-      </nav>
-    </div>
+      <div
+        className="navbar fixed bottom-0 navbar-light block sm:hidden bg-ghost"
+        role="navigation"
+      >
+        <div className=" d-flex flex-row justify-around w-[100%] ">
+          {tabs.map((tab, index) => (
+            <Link href={tab.route} className="nav-link bottom-nav-link w-10  flex justify-center">
+              <button className="btn">
+                <FontAwesomeIcon
+                  className="text-black"
+                  size="lg"
+                  icon={tab.icon}
+                />
+                <span>{tab.label}</span>
+              </button>
+            </Link>
+          ))}
+        </div>
+      </div>
+    
   );
 }

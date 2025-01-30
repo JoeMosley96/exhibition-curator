@@ -4,21 +4,14 @@ import Link from "next/link";
 
 export default function TopNav() {
   return (
-    <nav className="navbar bg-base-100 max-sm:invisible">
+    <nav className="navbar sm:flex justify-between bg-base-100 hidden">
       <Link href="/">
-      <div className="flex-1">
+      <div className="flex-1 ">
         <p className="btn btn-ghost text-xl">masterpieceHub</p>
       </div>
       </Link>
-      <div className="flex-none gap-2">
-        {/* <div className="form-control"> */}
+      <div className="flex-none gap-2 ">
           <EmbeddedSearch/>
-          {/* <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          /> */}
-        {/* </div> */}
         <div className="dropdown dropdown-end pr-4">
           <div
             tabIndex={0}

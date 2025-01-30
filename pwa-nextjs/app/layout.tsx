@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import BottomNav from "./zui/BottomNav";
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
 import TopNav from "./zui/TopNav";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -41,11 +41,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning data-theme="cupcake">
-      <body className={inter.className} data-theme="cupcake">
+      <body className={inter.className} >
         <TopNav />
         {children}
         <BottomNav />
       </body>
+      
     </html>
   );
 }

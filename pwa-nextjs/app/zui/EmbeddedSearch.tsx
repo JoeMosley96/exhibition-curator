@@ -52,7 +52,7 @@ export default function EmbeddedSearch() {
     >
       <div className="relative ">
         {/* <div className="form-control "> */}
-        <label className="input input-bordered flex items-center gap-2">
+        <label className="input input-bordered flex items-center gap-2 sm:w-96">
 
           <input
             defaultValue={searchParams.get("query")?.toString() || searchInput}
