@@ -195,4 +195,19 @@ export async function getCollectionsBySearch(
   }
 }
 
+export async function deleteCollection(collection_id:number){
+  try{
+    const sqlStr=`
+    DELETE FROM collections
+    WHERE collection_id = $1
+    RETURNING *`
+    const values = [collection_id]
+    const deletedResponse = await sql.query(sqlStr, values)
+    const deletedCollection = deletedResponse.rows[0]
+    console.log(deletedCollection)
+    return deletedCollection
+  } catch(error){
+    console.log("Error deleting collection", error)
+  }
+}
 

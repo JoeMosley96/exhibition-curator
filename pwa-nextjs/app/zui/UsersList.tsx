@@ -1,5 +1,6 @@
 import { getUsersBySearch } from "../lib/data/users";
-import Image from "next/image";
+import UserCard from "./UserCard";
+import Pagination from "./Pagination";
 
 export default async function UsersList({
   query,
@@ -9,14 +10,23 @@ export default async function UsersList({
   pageNumber: number;
 }) {
   const users = await getUsersBySearch(pageNumber, query);
-  return users?.map((user) => {
+  let totalPages;
+  if (users?.length) {
+    totalPages = Math.ceil(users.length / 20);
+    const filteredUsers = users.filter((user) => user !== undefined);
     return (
       <>
-      <Image alt="Avatar image" width={300} height={300} src={user?.avatar_img_url}/>
-        <p>{user?.first_name}</p>
-        <p>{user?.last_name}</p>
-        <p>{user?.username}</p>
+        <div className="grid sm:grid-cols-2 sm:w-7/12 mx-auto gap-3">
+          {filteredUsers.map((user) => {
+            return <UserCard user={user} />;
+          })}
+        </div>
+        {totalPages > 1 && (
+          <div className="pb-14 sm:pb-4 pt-10 flex justify-center">
+            <Pagination totalPages={totalPages <= 10 ? totalPages : 10} />
+          </div>
+        )}
       </>
     );
-  });
+  }
 }

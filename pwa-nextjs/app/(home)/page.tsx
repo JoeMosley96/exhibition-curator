@@ -14,7 +14,9 @@ export default async function Home(props: {
   return (
     <div>
       <Suspense key={`${searchParams?.page}`} fallback={<Spinner />}>
+      <div className="sm:pt-16">
         <ArtworksList query="" pageNumber={page} />
+      </div>
         {/* <ArtworksDebug query="" pageNumber={page} /> */}
       </Suspense>
     </div>

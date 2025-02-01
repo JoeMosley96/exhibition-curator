@@ -27,21 +27,20 @@ export default function Success({
   }, [setJustAdded]);
 
   return (
-    <div className="flex justify-center">
-   
+    <div className="flex justify-center p-5">
         <motion.div
-          className="sm:w-7/12 w-full h-56  bg-white flex items-center shadow-lg rounded-lg"
+          className=" bg-white flex items-center shadow-lg rounded-lg"
           animate={{ y: -220 }}
           initial={{ y: 0 }}
         >
           <motion.div animate={{ scale: 1 }} initial={{ scale: 0 }}>
             <FontAwesomeIcon
-              className="w-24 h-24 ml-5 mb-10 sm:ml-12 sm:mb-0"
+              className="w-24 h-24 m-5"
               color="green"
               icon={faCheckCircle}
             />
           </motion.div>
-          <p className="text-center mb-10 sm:mb-0 ml-10 text-xl">
+          <p className="text-center sm:mb-0 ml-10 mr-5 text-xl">
             Added To {chosenCollection.title}
           </p>
         </motion.div>

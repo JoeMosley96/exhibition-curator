@@ -45,7 +45,7 @@ export default function SingleArtworkPage({
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log("first useEffect")
+    console.log("first useEffect");
     const checkIfSaved = async () => {
       const saved = await checkSaved(1, artwork.artworkId);
       if (saved) {
@@ -60,7 +60,7 @@ export default function SingleArtworkPage({
   }, [justAdded, justRemoved, artwork.artworkId]);
 
   useEffect(() => {
-    console.log("second useEffect")
+    console.log("second useEffect");
     const checkNewCollection = async () => {
       const params = new URLSearchParams(searchParams);
       const new_collection = params.get("new_collection");
@@ -78,29 +78,30 @@ export default function SingleArtworkPage({
 
   return (
     <>
-      <div className="pb-16 sm:pt-20 md:flex ">
-          <div >
+      <div className="pb-16 sm:pb-0 sm:pt-20 md:flex h-full ">
+        <div>
           <Image
             className="w-full object-fill mb-10 sm:mb-0"
             width={600}
             height={300}
             src={artwork.imageURL}
             alt={artwork.title}
-            />
-            </div>
-       
-        
+          />
+        </div>
+
         <article className="prose px-5 ">
           <h1>{artwork.title || "Unknown Title"}</h1>
           <h2>By {artwork.artist}</h2>
           {artwork.description && <div>{parse(sanitizedDescription)}</div>}
           {artwork.history && <div>{parse(sanitizedHistory)}</div>}
-          <SaveButton
-            setJustRemoved={setJustRemoved}
-            saved={saved}
-            artworkId={artwork.artworkId}
-            chosenCollection={chosenCollection}
-          />
+          <div className="mt-5">
+            <SaveButton
+              setJustRemoved={setJustRemoved}
+              saved={saved}
+              artworkId={artwork.artworkId}
+              chosenCollection={chosenCollection}
+            />
+          </div>
         </article>
       </div>
       <CollectionsDialog

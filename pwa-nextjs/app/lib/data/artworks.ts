@@ -137,22 +137,31 @@ export async function getChicArtworks(page: number, searchValue: string) {
       `artworks${chicSearchQuery}${operator}${chicQuery}`
     );
 
-    const filteredResponse = chicResponse.data.data.filter((record: { image_id: string | null }) => record.image_id !== null)
+    const filteredResponse = chicResponse.data.data.filter(
+      (record: { image_id: string | null }) => record.image_id !== null
+    );
+
     const chicArtworks: Artwork[] = await Promise.all(
-      
       filteredResponse.map(async (artwork: { id: string }) => {
         return await getChicArtworkById(artwork.id);
       })
     );
 
-    const returnArtworks = chicArtworks.filter((artwork)=>artwork!==null)
+    const returnArtworks = chicArtworks.filter((artwork) => artwork !== null);
+
+    // Ensure unique artworkId
+    const uniqueArtworks = Array.from(
+      new Map(returnArtworks.map((art) => [art.artworkId, art])).values()
+    );
+
     return {
-      artworks: returnArtworks,
+      artworks: uniqueArtworks,
       pages: chicResponse.data.pagination.total_pages,
     };
   } catch (err) {
     console.log(err);
   }
 }
+
 
 

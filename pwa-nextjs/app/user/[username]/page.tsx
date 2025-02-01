@@ -1,8 +1,8 @@
 import { getUserById, getUserIdByUsername } from "@/app/lib/data/users";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-
 import { getChicArtworkById, getVAMArtworkById } from "@/app/lib/data/artworks";
+import CollectionCard from "@/app/zui/CollectionCard";
 
 export default async function Profile(props: {
   params?: Promise<{
@@ -16,37 +16,32 @@ export default async function Profile(props: {
   if (userData) {
     return (
       <>
-        <div>
-          <p>{userData.userInfo.username}</p>
-          <p>{userData.userInfo.first_name}</p>
-          <p>{userData.userInfo.last_name}</p>
-          <p>{userData.userInfo.bio}</p>
-          <Image
-            alt="Profile image"
-            key={userData.userInfo.username}
-            src={userData.userInfo.avatar_img_url}
-            width={300}
-            height={300}
-          />
+        <div className="flex flex-col items-center">
+          <div className="avatar pt-4 sm:pt-24 pb-2">
+            <div className="w-56 rounded-full ">
+              <Image
+                alt="Profile image"
+                key={userData.userInfo.username}
+                src={userData.userInfo.avatar_img_url}
+                width={600}
+                height={600}
+              />
+            </div>
+          </div>
+          <article className="prose flex flex-col items-center">
+            <h1 className="mb-0">{`${userData.userInfo.first_name} ${userData.userInfo.last_name}`}</h1>
+            <p className="mb-0">{userData.userInfo.bio}</p>
+            <p className="mb-0">{userData.userInfo.username}</p>
+            {userId === 1 ? (
+              <h2>Your Collections:</h2>
+            ) : (
+              <h2>{`${userData.userInfo.first_name} ${userData.userInfo.last_name}'s Collections:`}</h2>
+            )}
+          </article>
         </div>
-        <div>
-          <p>{`${userData.userInfo.first_name} ${userData.userInfo.last_name}'s collections:`}</p>
-          {userData.userCollections?.map((collection)=>{
-            return (
-              <div key={collection.collectionInfo.collection_id}>
-                <p>{collection.collectionInfo.title}</p>
-                <p>{collection.collectionInfo.description}</p>
-                {collection.collectionArtworks.map(async (artwork, i) => {
-                  const fullArtwork = artwork.startsWith("O") ? await getVAMArtworkById(artwork) : await getChicArtworkById(artwork);
-                  return (
-                    <div key={fullArtwork?.artworkId || i}>
-                    <Image src={fullArtwork?.imageURL || "../../public/Image-not-found.png"} alt="artwork image" width={300} height={300}/>
-                    </div>                      
-                  );
-                })}
-              </div>
-            )
-          })}
+        <div className="flex flex-wrap gap-7 justify-center mt-6 sm:mb-16 mb-20">
+          {userData.userCollections?.map((collection) => <CollectionCard collection={collection}/>
+          )}
         </div>
       </>
     );

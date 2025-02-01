@@ -17,7 +17,7 @@ export default async function Page(props: {
 }) {
   const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
-  const filter = searchParams?.filter
+  const filter = searchParams?.filter;
   const pageNumber = Number(searchParams?.page) || 1;
 
   return (
@@ -26,14 +26,25 @@ export default async function Page(props: {
         <EmbeddedSearch />
       </div>
       {query.length ? (
-        <Suspense key={`${searchParams?.page}-${searchParams?.query}-${searchParams?.filter}`} fallback={<Spinner />}>
-          <div className="sm:ml-11 mb-6">
-          <FilterButton/>
+        <Suspense
+          key={`${searchParams?.page}-${searchParams?.query}-${searchParams?.filter}`}
+          fallback={<Spinner />}
+        >
+          <div className="sm:ml-5 sm:mt-20">
+            <FilterButton />
           </div>
-          <FilterDialog/>
-          {filter==="artworks" && <ArtworksList query={query} pageNumber={pageNumber} />}
-          {filter==="collections" && <CollectionsList query={query} pageNumber={pageNumber} />}
-          {filter==="profiles"&&<UsersList query={query} pageNumber={pageNumber}/>}
+          <FilterDialog />
+          <div className="pb-8 pt-5">
+            {filter === "artworks" && (
+              <ArtworksList query={query} pageNumber={pageNumber} />
+            )}
+            {filter === "collections" && (
+              <CollectionsList query={query} pageNumber={pageNumber} />
+            )}
+            {filter === "profiles" && (
+              <UsersList query={query} pageNumber={pageNumber} />
+            )}
+          </div>
         </Suspense>
       ) : (
         <h1>Put collections here</h1>

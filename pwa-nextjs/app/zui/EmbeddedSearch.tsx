@@ -1,13 +1,16 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useSearchParams, usePathname, useRouter, useParams } from "next/navigation";
+import {
+  useSearchParams,
+  usePathname,
+  useRouter,
+  useParams,
+} from "next/navigation";
 import React, { useState, useRef } from "react";
 import { searchSuggestions } from "../lib/data/search";
 
 export default function EmbeddedSearch() {
-
- 
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -36,7 +39,10 @@ export default function EmbeddedSearch() {
   let filteredSuggestions: string[] = [];
   if (searchInput.length) {
     filteredSuggestions = searchSuggestions.filter((keyword) => {
-      return keyword.toLowerCase().includes(searchInput.toLowerCase()) && keyword !== searchInput;
+      return (
+        keyword.toLowerCase().includes(searchInput.toLowerCase()) &&
+        keyword !== searchInput
+      );
     });
   }
 
@@ -52,7 +58,6 @@ export default function EmbeddedSearch() {
       <div className="relative ">
         {/* <div className="form-control "> */}
         <label className="input input-bordered flex items-center gap-2 sm:w-96">
-
           <input
             defaultValue={searchParams.get("query")?.toString() || searchInput}
             type="text"
@@ -64,32 +69,33 @@ export default function EmbeddedSearch() {
             }}
             ref={searchBox}
             className="grow"
-            // value={searchInput || searchParams.get("query")?.toString()}
-            />
+          />
           <button type="submit">
-            <FontAwesomeIcon className="fa-solid" size="sm" icon={faMagnifyingGlass} />
+            <FontAwesomeIcon
+              className="fa-solid"
+              size="sm"
+              icon={faMagnifyingGlass}
+            />
           </button>
-            </label>
-        {/* </div> */}
+        </label>
         <div className="result-box w-24">
           {filteredSuggestions &&
             filteredSuggestions.map((keyword, i) => (
               <button
                 key={i}
                 onClick={() => {
-                  setSearchInput(keyword)
+                  setSearchInput(keyword);
                   handleSubmit(keyword);
                 }}
                 className="flex justify-between"
               >
                 <div>
-                 <FontAwesomeIcon
+                  <FontAwesomeIcon
                     icon={faMagnifyingGlass}
                     className="fa-solid"
                   />
                 </div>
                 {keyword}
-                 
               </button>
             ))}
         </div>
