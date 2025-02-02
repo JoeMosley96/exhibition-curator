@@ -57,6 +57,8 @@ npm run dev
 
 Seed the database by navigating to http://localhost:3000/seed in the URL box - you should get a message saying "Database seeded successfully"
 
+Navigate back to http://localhost:3000/ and use the site with the seeded data
+
 When using the site on Google Chrome, an "Install" button should appear on the right hand side of the URL box - so that the app can be saved to the desktop.
 
 ## Approach
