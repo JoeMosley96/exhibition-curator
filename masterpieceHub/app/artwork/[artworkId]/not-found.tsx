@@ -8,13 +8,13 @@ export default function NotFound() {
     
 const router=useRouter()
   return (
-    <main className="flex h-full flex-col items-center justify-center gap-2">
-      <FontAwesomeIcon icon={faFrown} className="w-20 text-gray-400" />
+    <main className="mt-20 flex h-full flex-col items-center justify-center gap-2">
+      <FontAwesomeIcon icon={faFrown} className="h-20 text-gray-400" />
       <h2 className="text-xl font-semibold">404 Not Found</h2>
       <p>Could not find the requested artwork.</p>
       <button
         onClick={()=>{router.back()}}
-        className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400"
+        className="mt-4 btn btn-primary"
       >
         Go Back
       </button>

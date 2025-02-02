@@ -1,6 +1,6 @@
 # masterpieceHub
 
-[Hosted Site](exhibition-curator-a0xjr27yf-joemosley96s-projects.vercel.app)
+[Hosted Site](https:exhibition-curator-joemosley96s-projects.vercel.app)
 
 ## Project Description
 
