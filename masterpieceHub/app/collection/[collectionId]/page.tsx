@@ -22,7 +22,7 @@ export default async function Page(props: {
       collection.collectionInfo.created_at,
       { addSuffix: true }
     );
-    console.log(timeSincePosted);
+
     return (
       <Suspense fallback={<Spinner />}>
         <div className="sm:pt-16 pt-8">

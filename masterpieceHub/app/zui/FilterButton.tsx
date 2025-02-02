@@ -13,6 +13,7 @@ export default function FilterButton() {
       }}
     >
       <FontAwesomeIcon icon={faFilter} />
+      Filter
     </button>
   );
 }

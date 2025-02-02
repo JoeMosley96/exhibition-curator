@@ -9,21 +9,21 @@ import TopNav from "./zui/TopNav";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PWA NextJS",
-  description: "It's a simple progressive web application made with NextJS",
+  title: "masterpieceHub",
+  description: "Collect artworks from the world's best galleries",
   generator: "Next.js",
   manifest: "/manifest.json",
-  keywords: ["nextjs", "next14", "pwa", "next-pwa"],
+  keywords: ["masterpiece", "art", "gallery", "museum"],
   authors: [
     {
-      name: "imvinojanv",
-      url: "https://www.linkedin.com/in/imvinojanv/",
+      name: "Joe Mosley",
+      url: "https://www.linkedin.com/in/joe-mosley-0a06a1101/",
     },
   ],
 
   icons: [
-    { rel: "apple-touch-icon", url: "icons/icon-128x128.png" },
-    { rel: "icon", url: "icons/icon-128x128.png" },
+    { rel: "apple-touch-icon", url: "icons/icon-192x192.png" },
+    { rel: "icon", url: "icons/icon-192x192.png" },
   ],
 };
 

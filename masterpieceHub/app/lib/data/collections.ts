@@ -87,7 +87,6 @@ export async function addArtworkToExistingCollection(
     const values = [collection_id, artwork_id];
     const postedResponse = await sql.query(sqlStr, values);
     const newArtwork = postedResponse.rows;
-    console.log(newArtwork)
 
     return newArtwork;
   } catch (error) {
@@ -204,7 +203,7 @@ export async function deleteCollection(collection_id:number){
     const values = [collection_id]
     const deletedResponse = await sql.query(sqlStr, values)
     const deletedCollection = deletedResponse.rows[0]
-    console.log(deletedCollection)
+
     return deletedCollection
   } catch(error){
     console.log("Error deleting collection", error)

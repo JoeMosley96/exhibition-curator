@@ -75,7 +75,7 @@ export default function SingleArtworkPage({
 
   return (
     <>
-      <div className="pb-16 sm:pb-0 sm:pt-20 md:flex h-full ">
+      <div className="pb-16 sm:pb-0 sm:pt-20 md:flex h-screen ">
         <div>
           <Image
             className="w-full object-fill mb-10 sm:mb-0"

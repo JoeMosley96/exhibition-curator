@@ -47,7 +47,6 @@ export async function getVAMArtworkById(artworkId: string) {
         ? vamResponse.data.record.objectHistory
         : vamResponse.data.record.historicalContext,
     };
-
     return artwork;
   } catch (err) {
     console.log(err);
@@ -57,7 +56,7 @@ export async function getVAMArtworkById(artworkId: string) {
 export async function getChicArtworkById(artworkId: string) {
   try {
     const chicResponse: AxiosResponse = await chic.get(`artworks/${artworkId}`);
-    if (chicResponse.data.data.image_id != null) {
+    if (chicResponse.data.data.image_id !== null && chicResponse.data.data.image_id !== undefined ) {
       const imageURL = `${chicResponse.data.config.iiif_url}/${chicResponse.data.data.image_id}/full/pct:100/0/default.jpg`;
       const thumbnailURL = `${chicResponse.data.config.iiif_url}/${chicResponse.data.data.image_id}/full/600,/0/default.jpg`;
       const {height, width} = await loadImage(thumbnailURL)
@@ -138,7 +137,7 @@ export async function getChicArtworks(page: number, searchValue: string) {
     );
 
     const filteredResponse = chicResponse.data.data.filter(
-      (record: { image_id: string | null }) => record.image_id !== null
+      (record: { image_id: string | null | undefined}) => (record.image_id !== null && record.image_id !==undefined)
     );
 
     const chicArtworks: Artwork[] = await Promise.all(
@@ -147,7 +146,7 @@ export async function getChicArtworks(page: number, searchValue: string) {
       })
     );
 
-    const returnArtworks = chicArtworks.filter((artwork) => artwork !== null);
+    const returnArtworks = chicArtworks.filter((artwork) => (artwork !== null && artwork !==undefined));
 
     // Ensure unique artworkId
     const uniqueArtworks = Array.from(

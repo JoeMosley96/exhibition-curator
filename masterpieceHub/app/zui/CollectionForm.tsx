@@ -15,12 +15,8 @@ export default function CollectionForm() {
   const [errors, setErrors] = useState({ title: "", serverError: "" });
 
   async function createCollection(formData: FormData) {
-    console.log(formData);
+
     try {
-      console.log(
-        "formData.get(`collection-name`)",
-        formData.get("collection-name")
-      );
       const collection = {
         title: (formData.get("collection-name") as string) || "",
       };

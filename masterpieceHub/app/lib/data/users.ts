@@ -53,8 +53,7 @@ export async function getUsersBySearch(
     const values = [`%${query}%`, (pageNumber-1)*20]
     const usersResponse = await sql.query(sqlStr, values)
     const allUsers = usersResponse.rows
-    console.log(allUsers)
-    
+        
     return allUsers
   } catch(error){
     console.log("Error searching for users", error)

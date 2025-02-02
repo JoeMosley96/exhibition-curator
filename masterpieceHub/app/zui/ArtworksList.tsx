@@ -19,7 +19,7 @@ export default async function ArtworksList({
     ...(chicArtworks?.artworks || []),
   ];
   const totalPages = vamArtworks?.pages + chicArtworks?.pages;
-  const filteredArtworks = artworks.filter((element) => element != null);
+  const filteredArtworks = artworks.filter((element) => element !== null && element !== undefined);
   const seen = new Set();
   const uniqueArtworks = filteredArtworks.filter((artwork) => {
     if (seen.has(artwork.artworkId)) {
