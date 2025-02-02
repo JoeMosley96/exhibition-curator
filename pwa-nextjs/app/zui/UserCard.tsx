@@ -10,8 +10,8 @@ interface User {
 
 export default function UserCard({ user }: { user: User }) {
   return (
-    <Link href={`/user/${user.username}`}>
-      <div key={user.username} className="flex flex-row card bg-base-100 w-96 shadow-xl  mx-auto">
+    <Link key={user.username} href={`/user/${user.username}`}>
+      <div className="flex flex-row card bg-base-100 w-96 shadow-xl  mx-auto">
         <figure>
           <Image
             className="ml-3 rounded-full aspect-square object-cover"

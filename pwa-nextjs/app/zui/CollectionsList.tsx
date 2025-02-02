@@ -1,4 +1,5 @@
 import { getCollectionsBySearch } from "../lib/data/collections";
+import { getUserById } from "../lib/data/users";
 import CollectionCard from "./CollectionCard";
 import Pagination from "./Pagination";
 
@@ -16,7 +17,10 @@ export default async function CollectionsList({
     const filteredCollections = collections.filter(
       (collection) => collection !== undefined
     );
-
+    // filteredCollections.forEach(async (collection)=>{
+    //   const username = (await getUserById(collection.collectionInfo.user_id))?.userInfo.username
+    //   collection.collectionInfo.username=username
+    // })
     return (
       <>
         <div className="flex flex-wrap gap-3 justify-center pb-10">
@@ -38,7 +42,6 @@ export default async function CollectionsList({
       </>
     );
   } else {
-    console.log("no collections found");
     return (
       <div className="flex justify-center items-center">
         <p>{`No collections found for the search term "${query}"`}</p>

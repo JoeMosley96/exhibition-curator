@@ -28,5 +28,11 @@ export default async function UsersList({
         )}
       </>
     );
+  } else{
+    return (
+      <div className="flex justify-center items-center">
+      <p>{`No users found`}</p>
+    </div>
+    )
   }
 }

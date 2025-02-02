@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Collection } from "../lib/data/collections";
 import Link from "next/link";
+import { getUserById } from "../lib/data/users";
 
 export default function CollectionCard({
   collection,
