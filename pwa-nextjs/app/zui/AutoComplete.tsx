@@ -2,7 +2,6 @@
 import { searchSuggestions } from "../lib/data/search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { use } from "react";
 
 
 export default function AutoComplete({

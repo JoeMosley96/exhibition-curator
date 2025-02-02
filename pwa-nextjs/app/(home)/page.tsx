@@ -1,7 +1,6 @@
 import ArtworksList from "../zui/ArtworksList";
 import { Suspense } from "react";
 import Spinner from "../zui/Spinner";
-import { getCollectionById } from "../lib/data/collections";
 
 export default async function Home(props: {
   searchParams?: Promise<{

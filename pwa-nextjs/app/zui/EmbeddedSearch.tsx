@@ -3,16 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import {
   useSearchParams,
-  usePathname,
   useRouter,
-  useParams,
 } from "next/navigation";
 import React, { useState, useRef } from "react";
 import { searchSuggestions } from "../lib/data/search";
 
 export default function EmbeddedSearch() {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const { replace } = useRouter();
   const [searchInput, setSearchInput] = useState("");
   const searchBox = useRef<HTMLInputElement>(null);

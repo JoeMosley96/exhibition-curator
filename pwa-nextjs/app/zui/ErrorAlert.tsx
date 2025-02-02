@@ -18,7 +18,7 @@ export default function ErrorAlert({ errors, setErrors, errorKey }: ErrorAlertPr
         className='absolute top-0 bottom-0 right-0 px-2'
         onClick={() => {
           setErrors((prevState) => {
-            let newErrors = { ...prevState, ...errors };
+            const newErrors = { ...prevState, ...errors };
             delete newErrors[errorKey];
             return {
               title: newErrors.title || '',

@@ -18,7 +18,7 @@ export default async function UsersList({
       <>
         <div className="grid sm:grid-cols-2 sm:w-7/12 mx-auto gap-3">
           {filteredUsers.map((user) => {
-            return <UserCard user={user} />;
+            return <UserCard key={user.userInfo.user_id} user={user} />;
           })}
         </div>
         {totalPages > 1 && (

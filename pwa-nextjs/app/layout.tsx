@@ -1,10 +1,9 @@
 // app/layout.ts
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import BottomNav from "./zui/BottomNav";
-// import "bootstrap/dist/css/bootstrap.css";
+
 import TopNav from "./zui/TopNav";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,10 +21,10 @@ export const metadata: Metadata = {
     },
   ],
 
-  // icons: [
-  //   { rel: "apple-touch-icon", url: "icons/icon-128x128.png" },
-  //   { rel: "icon", url: "icons/icon-128x128.png" },
-  // ],
+  icons: [
+    { rel: "apple-touch-icon", url: "icons/icon-128x128.png" },
+    { rel: "icon", url: "icons/icon-128x128.png" },
+  ],
 };
 
 export const viewport = {

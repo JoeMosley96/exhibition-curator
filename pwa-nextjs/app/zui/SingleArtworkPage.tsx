@@ -1,7 +1,6 @@
 "use client";
 
 import CollectionsDialog from "@/app/zui/CollectionsDialog";
-import BackButton from "@/app/zui/BackButton";
 import SaveButton from "@/app/zui/SaveButton";
 import DOMPurify from "isomorphic-dompurify";
 import Success from "./Success";

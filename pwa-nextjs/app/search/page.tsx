@@ -1,4 +1,3 @@
-import Search from "../zui/Search";
 import { Suspense } from "react";
 import ArtworksList from "../zui/ArtworksList";
 import CollectionsList from "../zui/CollectionsList";
@@ -23,7 +22,9 @@ export default async function Page(props: {
   return (
     <div>
       <div className="mb-5 mt-5 mx-auto sm:hidden">
-        <EmbeddedSearch />
+        <Suspense>
+          <EmbeddedSearch />
+        </Suspense>
       </div>
       {query.length ? (
         <Suspense

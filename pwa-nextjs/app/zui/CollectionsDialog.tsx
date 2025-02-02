@@ -7,10 +7,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getChicArtworkById, getVAMArtworkById } from "../lib/data/artworks";
+
 
 export default function CollectionsDialog({
   userCollections,
@@ -34,10 +34,6 @@ export default function CollectionsDialog({
   const [deletePressedArr, setDeletePressedArr] = useState(
     new Array(userCollections.length).fill(false)
   );
-
-  // useEffect(()=>{
-
-  // },[collectionsList])
 
   return (
     <dialog
@@ -113,10 +109,12 @@ export default function CollectionsDialog({
                           className="btn btn-error h-3"
                           onClick={async () => {
                             const deletedResponse = await deleteCollection(collectionId);
-                            deletedResponse && setCollectionsList(collectionsList.toSpliced(i, 1));
-                            const deletePressedArrCopy = [...deletePressedArr];
-                            deletePressedArrCopy[i] = !deletePressedArrCopy[i];
-                            setDeletePressedArr(deletePressedArrCopy);
+                            if (deletedResponse){
+                              setCollectionsList(collectionsList.toSpliced(i, 1));
+                              const deletePressedArrCopy = [...deletePressedArr];
+                              deletePressedArrCopy[i] = !deletePressedArrCopy[i];
+                              setDeletePressedArr(deletePressedArrCopy)
+                            }
                           }}
                         >
                           Delete

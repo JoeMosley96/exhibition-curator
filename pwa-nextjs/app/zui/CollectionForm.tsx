@@ -41,7 +41,7 @@ export default function CollectionForm() {
           );
         }
       }
-    } catch (error) {
+    } catch {
       setErrors({ title: "", serverError: "Please try again." });
     }
   }

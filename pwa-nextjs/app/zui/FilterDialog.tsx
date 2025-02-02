@@ -1,21 +1,17 @@
 "use client";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 export default function FilterDialog() {
   const { replace } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  // const [popover, setPopover] = useState<HTMLElement | null>(null);
 
   const artworksRadio = useRef<HTMLInputElement>(null);
   const profilesRadio = useRef<HTMLInputElement>(null);
   const collectionsRadio = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // setPopover(document.getElementById("filterpopover"));
     console.log("in use effect");
     const params = new URLSearchParams(searchParams);
     const filterApplied = params.get("filter");

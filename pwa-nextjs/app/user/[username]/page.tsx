@@ -1,7 +1,6 @@
 import { getUserById, getUserIdByUsername } from "@/app/lib/data/users";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getChicArtworkById, getVAMArtworkById } from "@/app/lib/data/artworks";
 import CollectionCard from "@/app/zui/CollectionCard";
 
 export default async function Profile(props: {
@@ -40,7 +39,7 @@ export default async function Profile(props: {
           </article>
         </div>
         <div className="flex flex-wrap gap-7 justify-center mt-6 sm:mb-16 mb-20">
-          {userData.userCollections?.map((collection) => <CollectionCard collection={collection}/>
+          {userData.userCollections?.map((collection) => <CollectionCard key={collection.collectionInfo.collection_id} collection={collection}/>
           )}
         </div>
       </>

@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import React, { useState, useRef } from "react";
-import AutoComplete from "./AutoComplete";
 import { searchSuggestions } from "../lib/data/search";
 
 export default function Search() {
