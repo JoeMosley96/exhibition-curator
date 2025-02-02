@@ -12,7 +12,6 @@ export default function FilterDialog() {
   const collectionsRadio = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    console.log("in use effect");
     const params = new URLSearchParams(searchParams);
     const filterApplied = params.get("filter");
     if (filterApplied === "collections") {

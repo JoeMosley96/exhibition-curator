@@ -16,7 +16,6 @@ export default async function Page(props: {
   const collectionId = params.collectionId;
   const collection = await getCollectionById(collectionId);
   if (collection) {
-    const collectionArtworks = collection?.collectionArtworks;
     const username = (await getUserById(collection.collectionInfo.user_id))
       ?.userInfo.username;
     const timeSincePosted = formatDistanceToNow(
@@ -32,7 +31,7 @@ export default async function Page(props: {
             <p>{collection.collectionInfo.description}</p>
             <p className="mb-20">Created by <Link href={`/user/${username}`}>{username}</Link> {timeSincePosted}</p>
           </article>
-          <FullCollection artworks={collectionArtworks} />
+          <FullCollection collection={collection} username={username} />
         </div>
       </Suspense>
     );

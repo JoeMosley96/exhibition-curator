@@ -44,7 +44,6 @@ export default function SingleArtworkPage({
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log("first useEffect");
     const checkIfSaved = async () => {
       const saved = await checkSaved(1, artwork.artworkId);
       if (saved) {
@@ -59,7 +58,6 @@ export default function SingleArtworkPage({
   }, [justAdded, justRemoved, artwork.artworkId]);
 
   useEffect(() => {
-    console.log("second useEffect");
     const checkNewCollection = async () => {
       const params = new URLSearchParams(searchParams);
       const new_collection = params.get("new_collection");
