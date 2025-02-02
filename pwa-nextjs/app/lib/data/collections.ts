@@ -211,3 +211,33 @@ export async function deleteCollection(collection_id:number){
   }
 }
 
+export async function fetchLatestCollections(){
+  try{
+    const sqlStr=`
+    SELECT c.collection_id, COUNT(ca.artwork_id)
+    FROM collectionArtworks ca
+    JOIN collections c ON ca.collection_id=c.collection_id
+    GROUP BY c.collection_id
+    HAVING COUNT(ca.artwork_id) > 0
+    ORDER BY c.created_at DESC
+    LIMIT 6;
+    `
+    const collectionResponse = await sql.query(sqlStr);
+      const collectionIds = collectionResponse.rows.map(
+        (collection) => collection.collection_id
+      );
+      const recentCollections: Collection[] = (
+        await Promise.all(
+          collectionIds.map(async (id: number) => {
+            const fullCollection = await getCollectionById(id);
+            return fullCollection;
+          })
+        )).filter(
+          (collection): collection is Collection => collection !== undefined
+        );
+      return recentCollections
+  } catch(error){
+    console.log("Error fetching recent collections",error)
+  }
+}
+

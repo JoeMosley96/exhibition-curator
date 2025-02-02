@@ -6,6 +6,7 @@ import Spinner from "../zui/Spinner";
 import FilterButton from "../zui/FilterButton";
 import FilterDialog from "../zui/FilterDialog";
 import EmbeddedSearch from "../zui/EmbeddedSearch";
+import RecentCollections from "../zui/RecentCollections";
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -21,7 +22,7 @@ export default async function Page(props: {
 
   return (
     <div>
-      <div className="mb-5 mt-5 mx-auto sm:hidden">
+      <div className="mb-5 mt-5 mx-auto sm:hidden z-60">
         <Suspense>
           <EmbeddedSearch />
         </Suspense>
@@ -48,7 +49,11 @@ export default async function Page(props: {
           </div>
         </Suspense>
       ) : (
-        <h1>Put collections here</h1>
+        <Suspense fallback={<Spinner />}>
+          <div className=" z-50">
+          <RecentCollections/>
+          </div>
+        </Suspense>
       )}
     </div>
   );
