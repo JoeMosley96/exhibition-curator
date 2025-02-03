@@ -6,7 +6,6 @@ import { Collection, deleteCollection } from "../lib/data/collections";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { revalidatePath } from "next/cache";
 
 export default function FullCollection({
   collection,
