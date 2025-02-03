@@ -50,7 +50,7 @@ export default async function Page(props: {
         </Suspense>
       ) : (
         <Suspense fallback={<Spinner />}>
-          <div className=" z-50">
+          <div className="mt-12">
           <RecentCollections/>
           </div>
         </Suspense>

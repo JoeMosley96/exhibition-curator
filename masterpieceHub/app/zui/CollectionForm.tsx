@@ -43,9 +43,10 @@ export default function CollectionForm() {
   }
   return (
     <form
+      className="mx-3"
       action={createCollection}
     >
-      <div className="grid grid-cols-2 gap-3 mb-5">
+      <div className="grid grid-cols-2 gap-3 mb-5 ">
         <label className="form-control w-full max-w-xs ">
           <div className="label">
             <span className="label-text">Add Collection Name</span>

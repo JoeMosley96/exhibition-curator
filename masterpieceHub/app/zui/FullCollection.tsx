@@ -6,6 +6,7 @@ import { Collection, deleteCollection } from "../lib/data/collections";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { revalidatePath } from "next/cache";
 
 export default function FullCollection({
   collection,
@@ -46,6 +47,9 @@ export default function FullCollection({
                   );
                   if (deletedResponse) {
                     router.back();
+                    setTimeout(() => {
+                      router.refresh();
+                    }, 200);
                   }
                 }}
               >
@@ -57,9 +61,7 @@ export default function FullCollection({
                 setDeletePressed(!deletePressed);
               }}
               className={
-                deletePressed
-                  ? "btn btn-success"
-                  : "btn btn-sm btn-ghost"
+                deletePressed ? "btn btn-success" : "btn btn-sm btn-ghost"
               }
             >
               {deletePressed ? (

@@ -33,7 +33,6 @@ export default function BottomNav() {
   const pathname=usePathname()
 
   useEffect(()=>{
-    
     if(pathname.includes("search")){
       setSelectedArr([false, true, false])
     } else if(pathname.includes("user/artlover1")){
@@ -48,7 +47,7 @@ export default function BottomNav() {
         className="navbar fixed bottom-0 block sm:hidden bg-white"
         role="navigation"
       >
-        <div className=" d-flex flex-row justify-around w-[100%] dock dock-md ">
+        <div className=" d-flex flex-row justify-around w-[100%] dock dock-sm ">
           {tabs.map((tab,i) => (
             <Link key={tab.label} href={tab.route} className="w-10  flex justify-center">
               <button >

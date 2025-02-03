@@ -8,9 +8,9 @@ export default async function RecentCollections() {
     <>
     <article className="prose">
 
-      <h2>New Collections:</h2>
+      <h2 className="mx-auto text-center mb-8">Browse New Collections:</h2>
     </article>
-      <div className="carousel rounded-box">
+      <div className="carousel">
         {latestCollections?.map((collection) => {
           return (
             <div className="carousel-item relative" key={collection.collectionInfo.collection_id}>

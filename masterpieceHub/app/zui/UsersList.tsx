@@ -13,12 +13,12 @@ export default async function UsersList({
   let totalPages;
   if (users?.length) {
     totalPages = Math.ceil(users.length / 20);
-    const filteredUsers = users.filter((user) => user !== undefined);
+    const filteredUsers = users.filter((user) => (user !== undefined && user !== null));
     return (
       <>
         <div className="grid sm:grid-cols-2 sm:w-7/12 mx-auto gap-3">
           {filteredUsers.map((user) => {
-            return <UserCard key={user.userInfo.user_id} user={user} />;
+            return <UserCard key={user.userInfo?.user_id} user={user} />;
           })}
         </div>
         {totalPages > 1 && (

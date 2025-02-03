@@ -30,12 +30,15 @@ export default async function ArtworksList({
     }
   });
 
-  shuffle(uniqueArtworks);
+  if(uniqueArtworks.length){
 
+    
+    shuffle(uniqueArtworks);
+    
   const artworksCol1: Artwork[] = [];
   const artworksCol2: Artwork[] = [];
   const heights = [0, 0];
-
+  
   uniqueArtworks.forEach((artwork) => {
     // Simulate image loading and assign to shorter column
     const imageHeight = artwork.imageHeight || 600; // Default height if unknown
@@ -63,10 +66,17 @@ export default async function ArtworksList({
         </div>
       </ul>
       {totalPages > 1 && (
-        <div className="pb-14 sm:pb-4 pt-10 flex justify-center">
+        <div className="pb-20 sm:pb-4 pt-10 flex justify-center">
           <Pagination totalPages={totalPages <= 10 ? totalPages : 10} />
         </div>
       )}
     </div>
   );
+} else{
+  return (
+    <div className="flex justify-center items-center">
+      <p>{`No artworks found for the search term "${query}"`}</p>
+    </div>
+  );
+}
 }
