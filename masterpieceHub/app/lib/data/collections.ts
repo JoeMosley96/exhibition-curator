@@ -240,3 +240,18 @@ export async function fetchLatestCollections(){
   }
 }
 
+export async function fetchAllCollectionNames(){
+  try{
+    const sqlStr=`
+    SELECT title FROM collections;
+    `
+    const collectionResponse = await sql.query(sqlStr)
+    const collectionsList = collectionResponse.rows.map((collection)=>collection.title)
+    return collectionsList
+  } catch(error){
+    console.log("Error fetching collections", error)
+  }
+}
+
+
+

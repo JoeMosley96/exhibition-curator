@@ -136,12 +136,8 @@ export async function getChicArtworks(page: number, searchValue: string) {
       `artworks${chicSearchQuery}${operator}${chicQuery}`
     );
 
-    const filteredResponse = chicResponse.data.data.filter(
-      (record: { image_id: string | null | undefined}) => (record.image_id !== null && record.image_id !==undefined)
-    );
-
     const chicArtworks: Artwork[] = await Promise.all(
-      filteredResponse.map(async (artwork: { id: string }) => {
+      chicResponse.data.data.map(async (artwork: { id: string }) => {
         return await getChicArtworkById(artwork.id);
       })
     );

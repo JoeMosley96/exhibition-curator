@@ -199,3 +199,5 @@ export const searchSuggestions = [
   "Art of the Digital Age",
   "NFT Art",
 ];
+
+

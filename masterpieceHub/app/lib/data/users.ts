@@ -59,3 +59,16 @@ export async function getUsersBySearch(
     console.log("Error searching for users", error)
   }
 }
+
+export async function getAllUsernames(){
+  try{
+    const sqlStr=`
+    SELECT username
+    FROM users`
+    const usersResponse = await sql.query(sqlStr)
+    const usersList = usersResponse.rows.map((user)=>user.username)
+    return usersList
+  } catch(error){
+    console.log("Error fetching users", error)
+  }
+}

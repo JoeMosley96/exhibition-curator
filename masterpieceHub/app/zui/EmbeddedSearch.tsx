@@ -5,13 +5,21 @@ import {
   useSearchParams,
   useRouter,
 } from "next/navigation";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { searchSuggestions } from "../lib/data/search";
+import { getAllUsernames } from "../lib/data/users";
+import {fetchAllCollectionNames} from "../lib/data/collections"
+
+
+
+
 
 export default function EmbeddedSearch() {
+
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const [searchInput, setSearchInput] = useState("");
+  const [chosenSuggestions, setChosenSuggestions] = useState(searchSuggestions)
   const searchBox = useRef<HTMLInputElement>(null);
   const searchForm = useRef<HTMLFormElement>(null!);
 
@@ -33,9 +41,24 @@ export default function EmbeddedSearch() {
     replace(`/search?${params.toString()}`);
   }
 
+  useEffect(()=>{
+    async function chooseList(){
+      const params = new URLSearchParams(searchParams)
+      if (params.get("filter")==="collections"){
+        const collectionsList: string[] = (await fetchAllCollectionNames()) || []
+        setChosenSuggestions(collectionsList)
+      } else if (params.get("filter")==="profiles"){
+        const usernamesList:string[] = (await getAllUsernames()) ||[]
+        setChosenSuggestions(usernamesList)
+      } else{setChosenSuggestions(searchSuggestions)}
+    }
+    chooseList()
+  },[searchParams])
+
+
   let filteredSuggestions: string[] = [];
   if (searchInput.length) {
-    filteredSuggestions = searchSuggestions.filter((keyword) => {
+    filteredSuggestions = chosenSuggestions.filter((keyword) => {
       return (
         keyword.toLowerCase().includes(searchInput.toLowerCase()) &&
         keyword !== searchInput
