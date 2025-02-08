@@ -1,6 +1,6 @@
 import { fetchLatestCollections } from "../lib/data/collections";
-import Image from "next/image";
 import Link from "next/link";
+import IKImageClient from "./IKImageClient";
 
 export default async function RecentCollections() {
   const latestCollections = await fetchLatestCollections();
@@ -17,13 +17,12 @@ export default async function RecentCollections() {
               <Link
                 href={`/collection/${collection.collectionInfo.collection_id}`}
               >
-                <Image
+                <IKImageClient
                   className="object-cover aspect-[2/3]"
                   width={400}
                   height={400}
                   src={collection.collectionArtworks[0].thumbnailURL}
-                  alt="Burger"
-                  unoptimized
+                  alt="Collection"
                 />
                 {/* <div className="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div> */}
                 <div className="absolute inset-0 flex items-center justify-center">

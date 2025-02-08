@@ -1,7 +1,7 @@
 import { getUserById, getUserIdByUsername } from "@/app/lib/data/users";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import CollectionCard from "@/app/zui/CollectionCard";
+import IKImageClient from "@/app/zui/IKImageClient";
 
 export default async function Profile(props: {
   params?: Promise<{
@@ -18,13 +18,13 @@ export default async function Profile(props: {
         <div className="flex flex-col items-center">
           <div className="avatar pt-4 sm:pt-24 pb-2">
             <div className="w-56 rounded-full ">
-              <Image
+              <IKImageClient
                 alt="Profile image"
                 key={userData.userInfo.username}
                 src={userData.userInfo.avatar_img_url}
                 width={600}
                 height={600}
-                unoptimized
+        
               />
             </div>
           </div>

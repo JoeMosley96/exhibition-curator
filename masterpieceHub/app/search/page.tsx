@@ -32,6 +32,7 @@ export default async function Page(props: {
           key={`${searchParams?.page}-${searchParams?.query}-${searchParams?.filter}`}
           fallback={<Spinner />}
         >
+        <>
           <div className="sm:ml-5 sm:mt-20">
             <FilterButton />
           </div>
@@ -47,6 +48,7 @@ export default async function Page(props: {
               <UsersList query={query} pageNumber={pageNumber} />
             )}
           </div>
+          </>
         </Suspense>
       ) : (
         <Suspense fallback={<Spinner />}>

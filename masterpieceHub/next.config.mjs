@@ -53,6 +53,11 @@ const nextConfig = {
         port: "",
         pathname: "/iiif/2/**/full/600,/0/default.jpg",
       },
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+        port: "",
+      },
     ],
     // domains: ['framemark.vam.ac.uk', "www.artic.edu"],
   },

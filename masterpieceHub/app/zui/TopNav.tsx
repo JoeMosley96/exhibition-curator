@@ -2,7 +2,8 @@ import React,{Suspense} from "react";
 import EmbeddedSearch from "./EmbeddedSearch";
 import Link from "next/link";
 import { getUserById } from "../lib/data/users";
-import Image from "next/image";
+
+import IKImageClient from "./IKImageClient";
 
 export default async function TopNav() {
   const userDetails = await getUserById(1);
@@ -25,12 +26,11 @@ export default async function TopNav() {
           >
             <div className="w-10 object-cover rounded-full">
               <Link href={`/user/${userDetails?.userInfo.username}`}>
-                <Image
+                <IKImageClient
                   width={200}
                   height={200}
                   alt="Tailwind CSS Navbar component"
                   src={userDetails?.userInfo.avatar_img_url}
-                  unoptimized
                 />
               </Link>
             </div>
@@ -56,28 +56,3 @@ export default async function TopNav() {
     </nav>
   );
 }
-
-// <div>
-// <nav
-//   className="navbar navbar-expand-md navbar-light d-none d-lg-block sticky-top"
-//   role="navigation"
-// >
-//   <div className="container-fluid">
-//     <Link className="navbar-brand" href="/">
-//       MasterpieceHub
-//     </Link>
-//     <Nav className="ml-auto">
-//       <NavItem>
-//         <Link href="/search" className="nav-link">
-//           Search
-//         </Link>
-//       </NavItem>
-//       <NavItem>
-//         <Link href="/user/artlover1" className="nav-link">
-//           Profile
-//         </Link>
-//       </NavItem>
-//     </Nav>
-//   </div>
-// </nav>
-// </div>

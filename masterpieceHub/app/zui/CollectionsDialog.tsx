@@ -9,7 +9,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import IKImageClient from "./IKImageClient";
 
 
 export default function CollectionsDialog({
@@ -84,13 +84,12 @@ export default function CollectionsDialog({
                     >
                       {collectionThumbnail && (
                         <div className="w-10 h-10">
-                          <Image
+                          <IKImageClient
                             className="object-cover aspect-square rounded-lg"
                             alt="Collction thumbnail"
                             src={collectionThumbnail}
                             height={50}
                             width={50}
-                            unoptimized
                           />
                         </div>
                       )}

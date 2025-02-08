@@ -5,7 +5,7 @@ import SaveButton from "@/app/zui/SaveButton";
 import DOMPurify from "isomorphic-dompurify";
 import Success from "./Success";
 import Removed from "./Removed";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import {
   checkSaved,
   getCollectionById,
@@ -14,7 +14,7 @@ import {
 import parse from "html-react-parser";
 import { useSearchParams } from "next/navigation";
 import { Artwork } from "../lib/data/artworks";
-import Image from "next/image";
+import IKImageClient from "./IKImageClient";
 
 export default function SingleArtworkPage({
   artwork,
@@ -76,15 +76,21 @@ export default function SingleArtworkPage({
   return (
     <>
       <div className="pb-16 sm:pb-0 sm:pt-20 md:flex h-full ">
-        <div>
-          <Image
-            className="w-full object-fill mb-10 sm:mb-0"
-            width={600}
-            height={300}
-            src={artwork.imageURL}
-            alt={artwork.title}
-            unoptimized
-          />
+        <div className="max-w-[50%] ">
+          <Suspense
+            key={artwork.artworkId}
+            fallback={
+              <div className="skeleton h-32 w-32"></div>
+            }
+          >
+            <IKImageClient
+              className="w-full object-fill mb-10 sm:mb-0"
+              width={600}
+              height={300}
+              src={artwork.imageURL}
+              alt={artwork.title}
+            />
+          </Suspense>
         </div>
 
         <article className="prose px-5 ">

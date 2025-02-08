@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import IKImageClient from "./IKImageClient";
 
 interface User {
   avatar_img_url: string;
@@ -13,13 +13,12 @@ export default function UserCard({ user }: { user: User }) {
     <Link key={user.username} href={`/user/${user.username}`}>
       <div className="flex flex-row card bg-base-100 w-96 shadow-xl  mx-auto">
         <figure>
-          <Image
+          <IKImageClient
             className="ml-3 rounded-full aspect-square object-cover"
             alt="Avatar image"
             width={100}
             height={100}
             src={user?.avatar_img_url}
-            unoptimized
           />
         </figure>
         <div className="ml-3 card-body">

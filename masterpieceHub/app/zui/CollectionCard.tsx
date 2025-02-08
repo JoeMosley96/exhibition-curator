@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { Collection } from "../lib/data/collections";
 import Link from "next/link";
+import IKImageClient from "./IKImageClient";
 
 export default function CollectionCard({
   collection,
@@ -23,13 +23,12 @@ export default function CollectionCard({
                 className={`row-span-full col-start${i + 1} col-span-2 `}
                 key={artwork?.artworkId || i}
               >
-                <Image
+                <IKImageClient
                   className="object-cover aspect-[2/3] "
                   src={artwork?.thumbnailURL || "../../public/Image-not-found.png"}
                   alt="artwork image"
                   width={300}
                   height={300}
-                  unoptimized
                 />
               </div>
             );
