@@ -23,6 +23,7 @@ export default async function RecentCollections() {
                   height={400}
                   src={collection.collectionArtworks[0].thumbnailURL}
                   alt="Burger"
+                  unoptimized
                 />
                 {/* <div className="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div> */}
                 <div className="absolute inset-0 flex items-center justify-center">

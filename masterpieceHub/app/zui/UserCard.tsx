@@ -19,6 +19,7 @@ export default function UserCard({ user }: { user: User }) {
             width={100}
             height={100}
             src={user?.avatar_img_url}
+            unoptimized
           />
         </figure>
         <div className="ml-3 card-body">

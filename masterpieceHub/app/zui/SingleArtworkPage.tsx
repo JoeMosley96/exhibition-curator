@@ -83,6 +83,7 @@ export default function SingleArtworkPage({
             height={300}
             src={artwork.imageURL}
             alt={artwork.title}
+            unoptimized
           />
         </div>
 

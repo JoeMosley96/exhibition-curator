@@ -30,6 +30,7 @@ export default async function TopNav() {
                   height={200}
                   alt="Tailwind CSS Navbar component"
                   src={userDetails?.userInfo.avatar_img_url}
+                  unoptimized
                 />
               </Link>
             </div>

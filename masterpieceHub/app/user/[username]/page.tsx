@@ -24,6 +24,7 @@ export default async function Profile(props: {
                 src={userData.userInfo.avatar_img_url}
                 width={600}
                 height={600}
+                unoptimized
               />
             </div>
           </div>

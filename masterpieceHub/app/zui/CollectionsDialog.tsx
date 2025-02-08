@@ -90,6 +90,7 @@ export default function CollectionsDialog({
                             src={collectionThumbnail}
                             height={50}
                             width={50}
+                            unoptimized
                           />
                         </div>
                       )}

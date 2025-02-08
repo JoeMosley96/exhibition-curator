@@ -29,6 +29,7 @@ export default function CollectionCard({
                   alt="artwork image"
                   width={300}
                   height={300}
+                  unoptimized
                 />
               </div>
             );
