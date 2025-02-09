@@ -5,7 +5,7 @@ import SaveButton from "@/app/zui/SaveButton";
 import DOMPurify from "isomorphic-dompurify";
 import Success from "./Success";
 import Removed from "./Removed";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect} from "react";
 import {
   checkSaved,
   getCollectionById,
@@ -15,7 +15,7 @@ import parse from "html-react-parser";
 import { useSearchParams } from "next/navigation";
 import { Artwork } from "../lib/data/artworks";
 import IKImageClient from "./IKImageClient";
-import { set } from "date-fns";
+
 
 export default function SingleArtworkPage({
   artwork,
@@ -41,7 +41,7 @@ export default function SingleArtworkPage({
     description: "",
     created_at: "",
   });
-  const [isLoading, setIsLoading] = useState(true);
+
 
   const searchParams = useSearchParams();
 
