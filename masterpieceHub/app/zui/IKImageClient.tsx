@@ -9,6 +9,7 @@ interface IKImageProps {
   height?: number;
   quality?: number;
   className?:string
+  // setIsLoading?: (isLoading: boolean) => void;
 }
 
 const urlEndpoint=process.env.NEXT_PUBLIC_URL_ENDPOINT
@@ -21,9 +22,10 @@ export default function IKImageClient({ src, alt, width = 500, height = 300, cla
         width={width}
         height={height}
         loading="lazy"
-        onLoad={(event) => event.currentTarget.classList.remove("opacity-0")}
+        // onLoad={() => setIsLoading && setIsLoading(false)}
         alt={alt}
-        className={`${className} opacity-0`}// Add custom Tailwind styles if needed
+        className={`${className}`}// Add custom Tailwind styles if needed
+        
       />
 
   );

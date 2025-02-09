@@ -15,6 +15,7 @@ import parse from "html-react-parser";
 import { useSearchParams } from "next/navigation";
 import { Artwork } from "../lib/data/artworks";
 import IKImageClient from "./IKImageClient";
+import { set } from "date-fns";
 
 export default function SingleArtworkPage({
   artwork,
@@ -40,6 +41,7 @@ export default function SingleArtworkPage({
     description: "",
     created_at: "",
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
 
@@ -77,20 +79,13 @@ export default function SingleArtworkPage({
     <>
       <div className="pb-16 sm:pb-0 sm:pt-20 md:flex h-full ">
         <div className="max-w-[50%] ">
-          <Suspense
-            key={artwork.artworkId}
-            fallback={
-              <div className="skeleton h-32 w-32"></div>
-            }
-          >
-            <IKImageClient
-              className="w-full object-fill mb-10 sm:mb-0"
-              width={600}
-              height={300}
-              src={artwork.imageURL}
-              alt={artwork.title}
-            />
-          </Suspense>
+          <IKImageClient
+            className="w-full object-fill mb-10 sm:mb-0"
+            width={600}
+            height={300}
+            src={artwork.imageURL}
+            alt={artwork.title}
+          />
         </div>
 
         <article className="prose px-5 ">

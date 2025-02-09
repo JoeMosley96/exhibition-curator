@@ -28,7 +28,8 @@ export async function getVAMArtworkById(artworkId: string) {
     );
     const imageURL = `https://framemark.vam.ac.uk/collections/${vamResponse.data.record.images[0]}/full/full/0/default.jpg`;
     const thumbnailURL = `https://framemark.vam.ac.uk/collections/${vamResponse.data.record.images[0]}/full/600,/0/default.jpg`;
-    const {height, width} = await loadImage(thumbnailURL)
+    const tinyURL = `https://framemark.vam.ac.uk/collections/${vamResponse.data.record.images[0]}/full/100,/0/default.jpg`;
+    const {height, width} = await loadImage(tinyURL)
 
     const artwork: Artwork = {
       artworkId: vamResponse.data.record.systemNumber,
@@ -59,7 +60,8 @@ export async function getChicArtworkById(artworkId: string) {
     if (chicResponse.data.data.image_id !== null && chicResponse.data.data.image_id !== undefined ) {
       const imageURL = `${chicResponse.data.config.iiif_url}/${chicResponse.data.data.image_id}/full/pct:100/0/default.jpg`;
       const thumbnailURL = `${chicResponse.data.config.iiif_url}/${chicResponse.data.data.image_id}/full/600,/0/default.jpg`;
-      const {height, width} = await loadImage(thumbnailURL)
+      const tinyURL = `${chicResponse.data.config.iiif_url}/${chicResponse.data.data.image_id}/full/100,/0/default.jpg`;
+      const {height, width} = await loadImage(tinyURL)
 
       const artwork: Artwork = {
         artworkId: chicResponse.data.data.id,

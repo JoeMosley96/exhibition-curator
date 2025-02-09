@@ -41,13 +41,13 @@ export default async function ArtworksList({
   
   uniqueArtworks.forEach((artwork) => {
     // Simulate image loading and assign to shorter column
-    const imageHeight = artwork.imageHeight || 600; // Default height if unknown
+    const imageHeightRatio = artwork.imageHeight / artwork.imageWidth // Default height if unknown
     if (heights[0] <= heights[1]) {
       artworksCol1.push(artwork);
-      heights[0] += imageHeight;
+      heights[0] += imageHeightRatio;
     } else {
       artworksCol2.push(artwork);
-      heights[1] += imageHeight;
+      heights[1] += imageHeightRatio;
     }
   });
 
