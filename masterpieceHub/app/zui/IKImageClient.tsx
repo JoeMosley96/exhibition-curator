@@ -15,6 +15,7 @@ interface IKImageProps {
 const urlEndpoint=process.env.NEXT_PUBLIC_URL_ENDPOINT
 
 export default function IKImageClient({ src, alt, width = 500, height = 300, className}: IKImageProps) {
+  
   return (
       <IKImage
         urlEndpoint={urlEndpoint}
@@ -22,7 +23,7 @@ export default function IKImageClient({ src, alt, width = 500, height = 300, cla
         width={width}
         height={height}
         loading="lazy"
-        // onLoad={() => setIsLoading && setIsLoading(false)}
+        onLoad={()=>console.log("loaded")}
         alt={alt}
         className={`${className}`}// Add custom Tailwind styles if needed
         

@@ -14,7 +14,7 @@ import {
 import parse from "html-react-parser";
 import { useSearchParams } from "next/navigation";
 import { Artwork } from "../lib/data/artworks";
-import IKImageClient from "./IKImageClient";
+import { ImageAsync } from "./ImageAsync";
 
 
 export default function SingleArtworkPage({
@@ -44,6 +44,7 @@ export default function SingleArtworkPage({
 
 
   const searchParams = useSearchParams();
+
 
   useEffect(() => {
     const checkIfSaved = async () => {
@@ -79,7 +80,7 @@ export default function SingleArtworkPage({
     <>
       <div className="pb-16 sm:pb-0 sm:pt-20 md:flex h-full ">
         <div className="sm:max-w-[50%] ">
-          <IKImageClient
+          <ImageAsync
             className="w-full object-fill mb-10 sm:mb-0"
             width={600}
             height={300}
